@@ -4,20 +4,33 @@ import java.math.BigDecimal;
 
 import exceptions.ObjetoInvalidoException;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tb_produto")
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
 	private long id;
 
+    @Column(name = "nome")
 	private String nome;
 
+    @Column(name = "preco")
 	private BigDecimal preco;
 
+    @Column(name = "codigo_barra")
 	private String codigoBarra;
 
+    @Column(name = "fabricante")
 	private String fabricante;
 
+    @Column(name = "categoria")
 	private String categoria;
 
+    @Column(name = "situacao")
 	public int situacao; // usa variaveis estaticas abaixo
 	/* situacoes do produto */
 	public static final int DISPONIVEL = 1;

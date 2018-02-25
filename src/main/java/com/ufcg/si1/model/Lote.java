@@ -1,10 +1,27 @@
 package com.ufcg.si1.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tb_lote")
 public class Lote {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
+
+    @Autowired
+    @ManyToOne
+    @JoinColumn(name = "id_produto")
     private Produto produto;
+
+    @Column(name = "numero_de_itens")
     private int numeroDeItens;
+
+    @Column(name = "data_de_validade")
     private String dataDeValidade;
 
     public Lote() {

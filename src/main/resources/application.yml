@@ -1,11 +1,10 @@
 server:
   port: 8080
-
-#spring:
-#  jpa:
-#    hibernate:
-#      ddl-auto: create-drop
-#  datasource:
-#    url:
-#    data-username:
-#    data-password:
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/projetosi
+    username: mariana
+    password: mariana
