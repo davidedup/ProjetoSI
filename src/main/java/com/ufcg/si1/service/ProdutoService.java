@@ -17,8 +17,6 @@ public interface ProdutoService {
 
 	void deleteProdutoById(long id);
 
-	int size();
-
 	Iterator<Produto> getIterator();
 
 	boolean doesProdutoExist(Produto produto);
