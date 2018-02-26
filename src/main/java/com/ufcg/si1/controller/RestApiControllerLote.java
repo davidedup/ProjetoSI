@@ -28,12 +28,11 @@ public class RestApiControllerLote {
 	 
 	
 	@RequestMapping(value = "/lote/", method = RequestMethod.GET)
-	public ResponseEntity<List<Lote>> listAllLotess() {
+	public ResponseEntity<List<Lote>> listarLotes() {
 		List<Lote> lotes = (List<Lote>) loteService.findAllLotes();
 
 		if (lotes.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
-			// You many decide to return HttpStatus.NOT_FOUND
 		}
 		return new ResponseEntity<List<Lote>>(lotes, HttpStatus.OK);
 	}

@@ -28,11 +28,11 @@ public class RestApiControllerProduto {
 	ProdutoService produtoService = new ProdutoServiceImpl();
 	
 	@RequestMapping(value = "/produto/", method = RequestMethod.GET)
-	public ResponseEntity<List<Produto>> listAllUsers() {
+	public ResponseEntity<List<Produto>> litarProdutos() {
 		List<Produto> produtos =  produtoService.findAllProdutos();
 
 		if (produtos.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity(new CustomErrorType("Não existe produtos cadastrados"), HttpStatus.NO_CONTENT);
 		}
 		
 		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
@@ -78,8 +78,7 @@ public class RestApiControllerProduto {
 		Produto produtoRequerido = this.produtoService.findById(id);
 		
 		if(produtoRequerido == null) {
-			//TODO:  mudar idioma
-			return new ResponseEntity(new CustomErrorType("Produto with id " + id + " not found"),	HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new CustomErrorType("O produto com o id: " + id + " não foi encontrado"),	HttpStatus.NOT_FOUND);
 		}else{
 			return new ResponseEntity<Produto>(produtoRequerido, HttpStatus.OK);
 		}
@@ -103,11 +102,11 @@ public class RestApiControllerProduto {
 	
 	//TODO: mudar noome do emtodo para portugues
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateProduto(@PathVariable("id") long id, @RequestBody Produto produto) {
+	public ResponseEntity<?> atualizaProduto(@PathVariable("id") long id, @RequestBody Produto produto) {
 		Produto produtoRequerido = this.produtoService.findById(id);
 		
 		if(produtoRequerido == null) {
-			return new ResponseEntity(new CustomErrorType("Unable to upate. Produto with id " + id + " not found."),
+			return new ResponseEntity(new CustomErrorType("Não foi possivel atualizar. O produto com Id: " + id + " não foi encontrado."),
 					HttpStatus.NOT_FOUND);
 		}else {
 			produto = this.produtoService.atualizaProduto(produto); 
@@ -150,14 +149,14 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
+	public ResponseEntity<?> deletaProduto(@PathVariable("id") long id) {
 		Produto produtoParaDeletar = this.produtoService.findById(id);
 		
 		if(produtoParaDeletar == null) {
-			return new ResponseEntity(new CustomErrorType("Unable to delete. Produto with id " + id + " not found."), HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new CustomErrorType("Não foi possivel deletar o produto. O produto com Id: " + id + " não foi encontrado."), HttpStatus.NOT_FOUND);
 		}else {
 			this.produtoService.deleteProdutoById(id);
-			return new ResponseEntity<Produto>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Produto>(HttpStatus.OK);
 			
 		}
 		
@@ -185,7 +184,7 @@ public class RestApiControllerProduto {
 		Produto produtoRequerido = this.produtoService.findById(id); 
 		
 		if(produtoRequerido == null) {
-			return new ResponseEntity(new CustomErrorType("Produto with id " + id + " not found"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new CustomErrorType("Produto com Id: " + id + " não foi encontrado."), HttpStatus.NOT_FOUND);
 		}else {
 			BigDecimal precoDoProduto = produtoRequerido.getPreco();
 			return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
