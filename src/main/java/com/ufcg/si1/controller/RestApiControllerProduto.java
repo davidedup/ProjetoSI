@@ -1,13 +1,8 @@
 package com.ufcg.si1.controller;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import com.ufcg.si1.model.DTO.LoteDTO;
-import com.ufcg.si1.model.Lote;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,29 +13,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.ufcg.si1.model.Lote;
 import com.ufcg.si1.model.Produto;
-import com.ufcg.si1.service.LoteService;
-import com.ufcg.si1.service.LoteServiceImpl;
+import com.ufcg.si1.model.DTO.LoteDTO;
 import com.ufcg.si1.service.ProdutoService;
 import com.ufcg.si1.service.ProdutoServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
 
-import exceptions.ObjetoInvalidoException;
-
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/produto")
 @CrossOrigin
-public class RestApiController {
-
+public class RestApiControllerProduto {
+	
 	ProdutoService produtoService = new ProdutoServiceImpl();
-	LoteService loteService = new LoteServiceImpl();
-
-	// -------------------Retrieve All
-	// Products---------------------------------------------
-
+	
+	
 	@RequestMapping(value = "/produto/", method = RequestMethod.GET)
 	public ResponseEntity<List<Produto>> listAllUsers() {
-		List<Produto> produtos = produtoService.findAllProdutos();
+		List<Produto> produtos =  produtoService.findAllProdutos();
+		
 
 		if (produtos.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -151,41 +142,6 @@ public class RestApiController {
 		return new ResponseEntity<Produto>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/produto/{id}/lote", method = RequestMethod.POST)
-	public ResponseEntity<?> criarLote(@PathVariable("id") long produtoId, @RequestBody LoteDTO loteDTO) {
-		Produto product = produtoService.findById(produtoId);
-
-		if (product == null) {
-			return new ResponseEntity(
-					new CustomErrorType("Unable to create lote. Produto with id " + produtoId + " not found."),
-					HttpStatus.NOT_FOUND);
-		}
-
-		Lote lote = loteService.saveLote(new Lote(product, loteDTO.getNumeroDeItens(), loteDTO.getDataDeValidade()));
-
-		if (!product.getDisponibilidade()) {
-			if (loteDTO.getNumeroDeItens() > 0) {
-				Produto produtoDisponivel = product;
-				produtoDisponivel.mudaDisponibilidade();
-				;
-				produtoService.updateProduto(produtoDisponivel);
-			}
-		}
-
-		return new ResponseEntity<>(lote, HttpStatus.CREATED);
-	}
-
-	@RequestMapping(value = "/lote/", method = RequestMethod.GET)
-	public ResponseEntity<List<Lote>> listAllLotess() {
-		List<Lote> lotes = (List<Lote>) loteService.findAllLotes();
-
-		if (lotes.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-			// You many decide to return HttpStatus.NOT_FOUND
-		}
-		return new ResponseEntity<List<Lote>>(lotes, HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
 	public ResponseEntity<BigDecimal> consultaPreco(@PathVariable("id") long id) {
 		BigDecimal precoDoProduto = null;
@@ -216,4 +172,5 @@ public class RestApiController {
 
 		return disponivel;
 	}
+
 }
