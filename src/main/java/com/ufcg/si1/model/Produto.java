@@ -46,7 +46,7 @@ public class Produto {
 		this.codigoBarra = codigoBarra;
 		this.fabricante = fabricante;
 		this.categoria = nomeCategoria;
-		this.disponivel = true;
+		this.disponivel = false;
 	}
 
 	public String getNome() {
