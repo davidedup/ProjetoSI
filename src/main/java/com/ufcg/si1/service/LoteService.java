@@ -1,13 +1,12 @@
 package com.ufcg.si1.service;
 
 import java.util.Iterator;
-import java.util.List;
 
 import com.ufcg.si1.model.Lote;
 
 public interface LoteService {
 
-	List<Lote> findAllLotes();
+	Iterable<Lote> findAllLotes();
 
 	Lote findById(long id);
 
