@@ -19,13 +19,13 @@ public class TokenFilter extends GenericFilterBean {
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
 
-        String token = this.getToken(servletRequest);
-        this.NullTokenTest(token);
-        this.ValidTokenTest(token);
+        String token = this.pegarToken(servletRequest);
+        this.tokenNuloTeste(token);
+        this.tokenValidoTeste(token);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private String getToken(ServletRequest servletRequest) {
+    private String pegarToken(ServletRequest servletRequest) {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String header = request.getHeader("Authorization");
         String token = header;
@@ -33,13 +33,13 @@ public class TokenFilter extends GenericFilterBean {
         return token;
     }
 
-    private void NullTokenTest(String token) throws ServletException {
+    private void tokenNuloTeste(String token) throws ServletException {
         if (token == null) {
             throw new ServletException("Token inexistente ou inválido");
         }
     }
 
-    private void ValidTokenTest(String token) throws ServletException {
+    private void tokenValidoTeste(String token) throws ServletException {
         try {
             Jwts.parser().setSigningKey("pastel").parseClaimsJws(token).getBody();
         } catch (SignatureException e) {

@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LotesRepository extends CrudRepository<Lote, Long> {
 
-
+    public Lote getLoteById(Long id);
 
 }
