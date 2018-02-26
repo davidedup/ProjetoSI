@@ -1,5 +1,6 @@
 package com.ufcg.si1.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,12 +68,7 @@ public class RestApiController {
 					+ produto.getFabricante() + " ja esta cadastrado!"), HttpStatus.CONFLICT);
 		}
 
-		try {
-			produto.mudaSituacao(Produto.INDISPONIVEL);
-		} catch (ObjetoInvalidoException e) {
-			return new ResponseEntity(new CustomErrorType("Error: Produto" + produto.getNome() + " do fabricante "
-					+ produto.getFabricante() + " alguma coisa errada aconteceu!"), HttpStatus.NOT_ACCEPTABLE);
-		}
+		produto.setDisponibilidade(false);
 
 		produtoService.saveProduto(produto);
 
@@ -167,16 +163,13 @@ public class RestApiController {
 
 		Lote lote = loteService.saveLote(new Lote(product, loteDTO.getNumeroDeItens(), loteDTO.getDataDeValidade()));
 
-		try {
-			if (product.getSituacao() == Produto.INDISPONIVEL) {
-				if (loteDTO.getNumeroDeItens() > 0) {
-					Produto produtoDisponivel = product;
-					produtoDisponivel.situacao = Produto.DISPONIVEL;
-					produtoService.updateProduto(produtoDisponivel);
-				}
+		if (!product.getDisponibilidade()) {
+			if (loteDTO.getNumeroDeItens() > 0) {
+				Produto produtoDisponivel = product;
+				produtoDisponivel.mudaDisponibilidade();
+				;
+				produtoService.updateProduto(produtoDisponivel);
 			}
-		} catch (ObjetoInvalidoException e) {
-			e.printStackTrace();
 		}
 
 		return new ResponseEntity<>(lote, HttpStatus.CREATED);
@@ -184,12 +177,43 @@ public class RestApiController {
 
 	@RequestMapping(value = "/lote/", method = RequestMethod.GET)
 	public ResponseEntity<List<Lote>> listAllLotess() {
-		List<Lote> lotes = loteService.findAllLotes();
+		List<Lote> lotes = (List<Lote>) loteService.findAllLotes();
 
 		if (lotes.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 			// You many decide to return HttpStatus.NOT_FOUND
 		}
 		return new ResponseEntity<List<Lote>>(lotes, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
+	public ResponseEntity<BigDecimal> consultaPreco(@PathVariable("id") long id) {
+		BigDecimal precoDoProduto = null;
+
+		for (Produto produto : produtoService.findAllProdutos()) {
+			if (produto.getId() == id) {
+				precoDoProduto = produto.getPreco();
+			}
+		}
+
+		if (precoDoProduto == null) {
+			return new ResponseEntity(new CustomErrorType("Produto with id " + id + " not found"),
+					HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
+	public boolean consultaDisponibilidade(@PathVariable("id") long id) {
+		Boolean disponivel = false;
+
+		for (Produto produto : produtoService.findAllProdutos()) {
+			if (produto.getId() == id) {
+				disponivel = produto.getDisponibilidade();
+			}
+		}
+
+		return disponivel;
 	}
 }

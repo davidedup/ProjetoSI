@@ -31,10 +31,7 @@ public class Produto {
 	private String categoria;
 
     @Column(name = "situacao")
-	public int situacao; // usa variaveis estaticas abaixo
-	/* situacoes do produto */
-	public static final int DISPONIVEL = 1;
-	public static final int INDISPONIVEL = 2;
+	public boolean disponivel;
 
 	public Produto() {
 		this.id = 0;
@@ -49,7 +46,7 @@ public class Produto {
 		this.codigoBarra = codigoBarra;
 		this.fabricante = fabricante;
 		this.categoria = nomeCategoria;
-		this.situacao = Produto.INDISPONIVEL;
+		this.disponivel = true;
 	}
 
 	public String getNome() {
@@ -100,22 +97,12 @@ public class Produto {
 		this.categoria = categoria;
 	}
 		
-	public void mudaSituacao(int situacao) throws ObjetoInvalidoException {
-		switch (situacao) {
-		case 1:
-			this.situacao = Produto.DISPONIVEL;
-			break;
-		case 2:
-			this.situacao = Produto.INDISPONIVEL;
-			break;
-
-		default:
-			throw new ObjetoInvalidoException("Situacao Invalida");
-		}
+	public void mudaDisponibilidade() {
+		this.disponivel = !this.disponivel;
 	}
 
-	public int getSituacao() throws ObjetoInvalidoException {
-		return this.situacao;
+	public boolean getDisponibilidade() {
+		return this.disponivel;
 	}
 
 	@Override
@@ -148,4 +135,10 @@ public class Produto {
 			return false;
 		return true;
 	}
+
+	public void setDisponibilidade(boolean b) {
+		this.disponivel = false; 
+		
+	}
+
 }
