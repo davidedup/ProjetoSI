@@ -1,8 +1,12 @@
 package com.ufcg.si1.controller;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import com.ufcg.si1.comparator.NomeComparator;
+import com.ufcg.si1.comparator.PrecoComparator;
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +45,27 @@ public class RestApiControllerProduto {
 		
 		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
 	}
+
+
+	@RequestMapping(value = "/ordenar-nome", method = RequestMethod.GET)
+	public List<Produto> listarProdutosOrdenadosPeloNome() {
+		List<Produto> produtos = this.produtoService.findAllProdutos();
+		Comparator nomeComparator = new NomeComparator();
+		Collections.sort(produtos, nomeComparator);
+
+		return produtos;
+	}
+
+
+	@RequestMapping(value = "/ordenar-preco", method = RequestMethod.GET)
+	public List<Produto> listarProdutosOrdenadosPeloPreco() {
+		List<Produto> produtos = this.produtoService.findAllProdutos();
+		Comparator precoComparator = new PrecoComparator();
+		Collections.sort(produtos, precoComparator);
+
+		return produtos;
+	}
+
 
 
 	@RequestMapping(method = RequestMethod.POST)

@@ -2,16 +2,17 @@ package com.ufcg.si1.comparator;
 
 import com.ufcg.si1.model.Produto;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 
-public class NomeComparator implements Comparator {
+public class PrecoComparator implements Comparator {
     @Override
     public int compare(Object o1, Object o2) {
         Produto produto1 = (Produto) o1;
         Produto produto2 = (Produto) o2;
-        String nome1 = produto1.getNome();
-        String nome2 = produto2.getNome();
+        BigDecimal preco1 = produto1.getPreco();
+        BigDecimal preco2 = produto2.getPreco();
 
-        return nome1.compareTo(nome2);
+        return preco1.compareTo(preco2);
     }
 }
