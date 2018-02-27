@@ -39,27 +39,15 @@ public class RestApiControllerLote {
 	}
 
 	
-//	@RequestMapping(value = "/produto/{id}/lote", method = RequestMethod.POST)
-//	public ResponseEntity<?> criarLote(@PathVariable("id") long produtoId, @RequestBody LoteDTO loteDTO) {
-//		Produto product = produtoService.findById(produtoId);
-//
-//		if (product == null) {
-//			return new ResponseEntity(
-//					new CustomErrorType("Unable to create lote. Produto with id " + produtoId + " not found."),
-//					HttpStatus.NOT_FOUND);
-//		}
-//
-//		Lote lote = loteService.saveLote(new Lote(product, loteDTO.getNumeroDeItens(), loteDTO.getDataDeValidade()));
-//
-//		if (!product.getDisponibilidade()) {
-//			if (loteDTO.getNumeroDeItens() > 0) {
-//				Produto produtoDisponivel = product;
-//				produtoDisponivel.mudaDisponibilidade();
-//				produtoService.updateProduto(produtoDisponivel);
-//			}
-//		}
-//
-//		return new ResponseEntity<>(lote, HttpStatus.CREATED);
-//	}
+	@RequestMapping(value = "/produto/{id}/lote", method = RequestMethod.POST)
+	public ResponseEntity<?> criarLote(@PathVariable("id") long produtoId, @RequestBody LoteDTO loteDTO) {
+		Lote lote = this.loteService.criarLote(produtoId, loteDTO);
+		
+		if(lote == null){
+			return new ResponseEntity( new CustomErrorType("Não foi possivel criar. Produto com id: " + produtoId + " não encontrado."), HttpStatus.NOT_FOUND);
+		}else{
+			return new ResponseEntity<>(lote, HttpStatus.CREATED);
+		}
+	}
 	
 }

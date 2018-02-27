@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.ufcg.si1.model.Lote;
+import com.ufcg.si1.model.DTO.LoteDTO;
 import com.ufcg.si1.repositories.LotesRepository;
 import com.ufcg.si1.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,11 @@ public class LoteServiceImpl implements LoteService {
 		Iterable<Lote> lotes = this.findAllLotes();
 		Iterator iterator = lotes.iterator();
 		return iterator;
+	}
+
+	@Override
+	public Lote criarLote(long produtoId, LoteDTO loteDTO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

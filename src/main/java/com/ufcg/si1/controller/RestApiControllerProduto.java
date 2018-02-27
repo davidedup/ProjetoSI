@@ -36,18 +36,17 @@ public class RestApiControllerProduto {
 
 	@Autowired
 	ProdutoService produtoService = new ProdutoServiceImpl();
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Produto>> litarProdutos() {
-		List<Produto> produtos =  produtoService.findAllProdutos();
+	public ResponseEntity<List<Produto>> listarProdutos() {
+		List<Produto> produtos = produtoService.findAllProdutos();
 
 		if (produtos.isEmpty()) {
 			return new ResponseEntity(new CustomErrorType("Não existe produtos cadastrados"), HttpStatus.NO_CONTENT);
 		}
-		
+
 		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
 	}
-
 
 	@RequestMapping(value = "/ordenar-nome", method = RequestMethod.GET)
 	public List<Produto> listarProdutosOrdenadosPeloNome() {
@@ -58,7 +57,6 @@ public class RestApiControllerProduto {
 		return produtos;
 	}
 
-
 	@RequestMapping(value = "/ordenar-preco", method = RequestMethod.GET)
 	public List<Produto> listarProdutosOrdenadosPeloPreco() {
 		List<Produto> produtos = this.produtoService.findAllProdutos();
@@ -67,7 +65,6 @@ public class RestApiControllerProduto {
 
 		return produtos;
 	}
-
 
 	@RequestMapping(value = "/ordenar-categoria", method = RequestMethod.GET)
 	public List<Produto> listarProdutosOrdenadosPelaCategoria() {
@@ -87,59 +84,20 @@ public class RestApiControllerProduto {
 		return produtos;
 	}
 
-
-
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> criarProduto(@RequestBody Produto produto, UriComponentsBuilder ucBuilder)
 			throws ObjetoJaExistenteException {
 
 		Produto produtoSalvo = this.produtoService.salvaProduto(produto);
 		return new ResponseEntity<>(produto, HttpStatus.CREATED);
-
-//		produtoService.criaProduto(produto);
-//		
-//		boolean produtoExiste = false;
-//
-//		for (Produto p : produtoService.findAllProdutos()) {
-//			if (p.getCodigoBarra().equals(produto.getCodigoBarra())) {
-//				produtoExiste = true;
-//			}
-//		}
-//
-//		if (produtoExiste) {
-//			return new ResponseEntity(new CustomErrorType("O produto " + produto.getNome() + " do fabricante "
-//					+ produto.getFabricante() + " ja esta cadastrado!"), HttpStatus.CONFLICT);
-//		}
-//
-//		produto.setDisponibilidade(false);
-//
-//		produtoService.saveProduto(produto);
-
-		// HttpHeaders headers = new HttpHeaders();
-		// headers.setLocation(ucBuilder.path("/api/produto/{id}").buildAndExpand(produto.getId()).toUri());		
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultarProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
 
-			return new ResponseEntity<Produto>(produtoRequerido, HttpStatus.OK); }
-
-		
-//		Produto p = null;
-//
-//		for (Produto produto : produtoService.findAllProdutos()) {
-//			if (produto.getId() == id) {
-//				p = produto;
-//			}
-//		}
-//
-//		if (p == null) {
-//			return new ResponseEntity(new CustomErrorType("Produto with id " + id + " not found"),
-//					HttpStatus.NOT_FOUND);
-//		}
-//		return new ResponseEntity<Produto>(p, HttpStatus.OK);
-
+		return new ResponseEntity<Produto>(produtoRequerido, HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/atualiza/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> atualizaProduto(@PathVariable("id") long id, @RequestBody Produto produto)
@@ -152,39 +110,8 @@ public class RestApiControllerProduto {
 
 		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
 	}
-		
-//		Produto currentProduto = null;
-//
-//		for (Produto p : produtoService.findAllProdutos()) {
-//			if (p.getId() == id) {
-//				currentProduto = p;
-//			}
-//		}
-//
-//		if (currentProduto == null) {
-//			return new ResponseEntity(new CustomErrorType("Unable to upate. Produto with id " + id + " not found."),
-//					HttpStatus.NOT_FOUND);
-//		}
-//
-//		currentProduto.mudaNome(produto.getNome());
-//		currentProduto.setPreco(produto.getPreco());
-//		currentProduto.setCodigoBarra(produto.getCodigoBarra());
-//		currentProduto.mudaFabricante(produto.getFabricante());
-//		currentProduto.mudaCategoria(produto.getCategoria());
 
-		// resolvi criar um servi�o na API s� para mudar a situa��o do produto
-		// esse c�digo n�o precisa mais
-		// try {
-		// currentProduto.mudaSituacao(produto.pegaSituacao());
-		// } catch (ObjetoInvalidoException e) {
-		// return new ResponseEntity(new CustomErrorType("Unable to upate. Produto with
-		// id " + id + " invalid."),
-		// HttpStatus.NOT_FOUND);
-		// }
-
-		//produtoService.updateProduto(currentProduto);
-		//return new ResponseEntity<Produto>(currentProduto, HttpStatus.OK);
-
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deletaProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		try {
@@ -195,21 +122,6 @@ public class RestApiControllerProduto {
 
 		this.produtoService.deleteProdutoById(id);
 		return new ResponseEntity<Produto>(HttpStatus.OK);
-
-//		Produto user = null;
-//
-//		for (Produto produto : produtoService.findAllProdutos()) {
-//			if (produto.getId() == id) {
-//				user = produto;
-//			}
-//		}
-//
-//		if (user == null) {
-//			return new ResponseEntity(new CustomErrorType("Unable to delete. Produto with id " + id + " not found."),
-//					HttpStatus.NOT_FOUND);
-//		}
-//		produtoService.deleteProdutoById(id);
-//		return new ResponseEntity<Produto>(HttpStatus.NO_CONTENT);
 	}
 
 	@RequestMapping(value = "/preco/{id}", method = RequestMethod.GET)
@@ -218,21 +130,6 @@ public class RestApiControllerProduto {
 
 		BigDecimal precoDoProduto = produtoRequerido.getPreco();
 		return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
-
-//		BigDecimal precoDoProduto = null;
-//
-//		for (Produto produto : produtoService.findAllProdutos()) {
-//			if (produto.getId() == id) {
-//				precoDoProduto = produto.getPreco();
-//			}
-//		}
-//
-//		if (precoDoProduto == null) {
-//			return new ResponseEntity(new CustomErrorType("Produto with id " + id + " not found"),
-//					HttpStatus.NOT_FOUND);
-//		}
-//
-//		return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/disponibilidade/{id}", method = RequestMethod.GET)
@@ -241,16 +138,6 @@ public class RestApiControllerProduto {
 		boolean disponibilidade = produtoRequerido.getDisponibilidade();
 
 		return disponibilidade;
-//		Boolean disponivel = false;
-//
-//		for (Produto produto : produtoService.findAllProdutos()) {
-//			if (produto.getId() == id) {
-//				disponivel = produto.getDisponibilidade();
-//			}
-//		}
-//
-//		return disponivel;
-//	}
 	}
 
 }

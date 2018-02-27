@@ -3,6 +3,7 @@ package com.ufcg.si1.service;
 import java.util.Iterator;
 
 import com.ufcg.si1.model.Lote;
+import com.ufcg.si1.model.DTO.LoteDTO;
 
 public interface LoteService {
 
@@ -19,4 +20,6 @@ public interface LoteService {
 	Iterator<Lote> getIterator();
 
 	Lote saveLote(Lote lote);
+
+	Lote criarLote(long produtoId, LoteDTO loteDTO);
 }
