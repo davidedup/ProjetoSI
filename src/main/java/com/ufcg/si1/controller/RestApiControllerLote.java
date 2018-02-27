@@ -27,13 +27,14 @@ public class RestApiControllerLote {
 	
 	 
 	
-	@RequestMapping(value = "/lote/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Lote>> listarLotes() {
 		List<Lote> lotes = (List<Lote>) loteService.findAllLotes();
 
 		if (lotes.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
+
 		return new ResponseEntity<List<Lote>>(lotes, HttpStatus.OK);
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +27,8 @@ import com.ufcg.si1.util.CustomErrorType;
 @RequestMapping("/produto")
 @CrossOrigin
 public class RestApiControllerProduto {
-	
+
+	@Autowired
 	ProdutoService produtoService = new ProdutoServiceImpl();
 	
 	@RequestMapping(method = RequestMethod.GET)

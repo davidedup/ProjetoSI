@@ -39,8 +39,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	public Produto atualizaProduto(Produto produto) throws ObjetoInexistenteException {
-		produto = this.produtosRepository.save(produto);
-		return produto;
+        produto = this.produtosRepository.save(produto);
+        return produto;
 	}
 
 	public void deleteProdutoById(long id) {
