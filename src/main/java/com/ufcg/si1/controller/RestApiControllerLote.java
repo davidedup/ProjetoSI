@@ -44,7 +44,7 @@ public class RestApiControllerLote {
 		Lote lote = this.loteService.criarLote(produtoId, loteDTO);
 		
 		if(lote == null){
-			return new ResponseEntity( new CustomErrorType("Não foi possivel criar. Produto com id: " + produtoId + " não encontrado."), HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new CustomErrorType("Não foi possivel criar. Produto com id: " + produtoId + " não encontrado."), HttpStatus.NOT_FOUND);
 		}else{
 			return new ResponseEntity<>(lote, HttpStatus.CREATED);
 		}
