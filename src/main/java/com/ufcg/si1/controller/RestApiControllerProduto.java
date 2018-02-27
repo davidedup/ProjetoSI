@@ -29,7 +29,7 @@ public class RestApiControllerProduto {
 	
 	ProdutoService produtoService = new ProdutoServiceImpl();
 	
-	@RequestMapping(value = "/produto/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Produto>> litarProdutos() {
 		List<Produto> produtos =  produtoService.findAllProdutos();
 
@@ -41,7 +41,7 @@ public class RestApiControllerProduto {
 	}
 
 
-	@RequestMapping(value = "/produto/", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> criarProduto(@RequestBody Produto produto, UriComponentsBuilder ucBuilder)
 			throws ObjetoJaExistenteException {
 
@@ -71,7 +71,7 @@ public class RestApiControllerProduto {
 		// headers.setLocation(ucBuilder.path("/api/produto/{id}").buildAndExpand(produto.getId()).toUri());		
 	}
 
-	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultarProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
 
@@ -93,7 +93,7 @@ public class RestApiControllerProduto {
 //		return new ResponseEntity<Produto>(p, HttpStatus.OK);
 
 
-	@RequestMapping(value = "/produto/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/atualiza/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> atualizaProduto(@PathVariable("id") long id, @RequestBody Produto produto)
 			throws ObjetoInexistenteException {
 		try {
@@ -137,7 +137,7 @@ public class RestApiControllerProduto {
 		//produtoService.updateProduto(currentProduto);
 		//return new ResponseEntity<Produto>(currentProduto, HttpStatus.OK);
 
-	@RequestMapping(value = "/produto/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deletaProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		try {
 			Produto produtoParaDeletar = this.produtoService.findById(id);
@@ -164,7 +164,7 @@ public class RestApiControllerProduto {
 //		return new ResponseEntity<Produto>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/preco/{id}", method = RequestMethod.GET)
 	public ResponseEntity<BigDecimal> consultaPreco(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
 
@@ -187,7 +187,7 @@ public class RestApiControllerProduto {
 //		return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/disponibilidade/{id}", method = RequestMethod.GET)
 	public boolean consultaDisponibilidade(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
 		boolean disponibilidade = produtoRequerido.getDisponibilidade();
