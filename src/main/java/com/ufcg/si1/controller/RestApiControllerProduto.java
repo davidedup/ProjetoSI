@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.ufcg.si1.comparator.CategoriaComparator;
 import com.ufcg.si1.comparator.NomeComparator;
 import com.ufcg.si1.comparator.PrecoComparator;
 import exceptions.ObjetoInexistenteException;
@@ -62,6 +63,16 @@ public class RestApiControllerProduto {
 		List<Produto> produtos = this.produtoService.findAllProdutos();
 		Comparator precoComparator = new PrecoComparator();
 		Collections.sort(produtos, precoComparator);
+
+		return produtos;
+	}
+
+	
+	@RequestMapping(value = "/ordenar-categoria", method = RequestMethod.GET)
+	public List<Produto> listarProdutosOrdenadosPelaCategoria() {
+		List<Produto> produtos = this.produtoService.findAllProdutos();
+		Comparator categoriaComparator = new CategoriaComparator();
+		Collections.sort(produtos, categoriaComparator);
 
 		return produtos;
 	}
