@@ -12,6 +12,6 @@ public class NomeComparator implements Comparator {
         String nome1 = produto1.getNome();
         String nome2 = produto2.getNome();
 
-        return nome1.compareTo(nome2);
+        return nome1.compareTo(produto2.getNome());
     }
 }
