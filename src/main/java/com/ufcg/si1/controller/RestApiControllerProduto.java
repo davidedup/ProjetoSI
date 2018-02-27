@@ -3,6 +3,8 @@ package com.ufcg.si1.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
+import exceptions.ObjetoInexistenteException;
+import exceptions.ObjetoJaExistenteException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,16 +42,12 @@ public class RestApiControllerProduto {
 
 
 	@RequestMapping(value = "/produto/", method = RequestMethod.POST)
-	public ResponseEntity<?> criarProduto(@RequestBody Produto produto, UriComponentsBuilder ucBuilder) {
-		Produto produtoSalvo = this.produtoService.criaProduto(produto);
-		
-		if (produto == null) {
-			String mensagem = "O produto " + produtoSalvo.getNome() + " do fabricante "	+ produtoSalvo.getFabricante() + " ja esta cadastrado!";
-			return new ResponseEntity(new CustomErrorType(mensagem), HttpStatus.CONFLICT);
-		} else {
-			return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
-		}
-		
+	public ResponseEntity<?> criarProduto(@RequestBody Produto produto, UriComponentsBuilder ucBuilder)
+			throws ObjetoJaExistenteException {
+
+		Produto produtoSalvo = this.produtoService.salvaProduto(produto);
+		return new ResponseEntity<>(produto, HttpStatus.CREATED);
+
 //		produtoService.criaProduto(produto);
 //		
 //		boolean produtoExiste = false;
@@ -74,15 +72,11 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> consultarProduto(@PathVariable("id") long id) {
+	public ResponseEntity<?> consultarProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
-		
-		if(produtoRequerido == null) {
-			return new ResponseEntity(new CustomErrorType("O produto com o id: " + id + " não foi encontrado"),	HttpStatus.NOT_FOUND);
-		}else{
-			return new ResponseEntity<Produto>(produtoRequerido, HttpStatus.OK);
-		}
-		
+
+			return new ResponseEntity<Produto>(produtoRequerido, HttpStatus.OK); }
+
 		
 //		Produto p = null;
 //
@@ -97,23 +91,19 @@ public class RestApiControllerProduto {
 //					HttpStatus.NOT_FOUND);
 //		}
 //		return new ResponseEntity<Produto>(p, HttpStatus.OK);
-	}
 
-	
-	//TODO: mudar noome do emtodo para portugues
+
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> atualizaProduto(@PathVariable("id") long id, @RequestBody Produto produto) {
-		Produto produtoRequerido = this.produtoService.findById(id);
-		
-		if(produtoRequerido == null) {
-			return new ResponseEntity(new CustomErrorType("Não foi possivel atualizar. O produto com Id: " + id + " não foi encontrado."),
-					HttpStatus.NOT_FOUND);
-		}else {
-			produto = this.produtoService.atualizaProduto(produto); 
-			return new ResponseEntity<Produto>(produto, HttpStatus.OK);
+	public ResponseEntity<?> atualizaProduto(@PathVariable("id") long id, @RequestBody Produto produto)
+			throws ObjetoInexistenteException {
+		try {
+			Produto produtoRequerido = this.produtoService.findById(id);
+		} catch (ObjetoInexistenteException e) {
+			throw new ObjetoInexistenteException("Não foi possivel atualizar. " + e.getMessage());
 		}
-		
-		
+
+		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
+	}
 		
 //		Produto currentProduto = null;
 //
@@ -146,23 +136,18 @@ public class RestApiControllerProduto {
 
 		//produtoService.updateProduto(currentProduto);
 		//return new ResponseEntity<Produto>(currentProduto, HttpStatus.OK);
-	}
 
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deletaProduto(@PathVariable("id") long id) {
-		Produto produtoParaDeletar = this.produtoService.findById(id);
-		
-		if(produtoParaDeletar == null) {
-			return new ResponseEntity(new CustomErrorType("Não foi possivel deletar o produto. O produto com Id: " + id + " não foi encontrado."), HttpStatus.NOT_FOUND);
-		}else {
-			this.produtoService.deleteProdutoById(id);
-			return new ResponseEntity<Produto>(HttpStatus.OK);
-			
+	public ResponseEntity<?> deletaProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
+		try {
+			Produto produtoParaDeletar = this.produtoService.findById(id);
+		} catch (ObjetoInexistenteException e) {
+			throw new ObjetoInexistenteException("Não foi possivel deletar o produto. " + e.getMessage());
 		}
-		
-		
-		
-		
+
+		this.produtoService.deleteProdutoById(id);
+		return new ResponseEntity<Produto>(HttpStatus.OK);
+
 //		Produto user = null;
 //
 //		for (Produto produto : produtoService.findAllProdutos()) {
@@ -180,17 +165,12 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
-	public ResponseEntity<BigDecimal> consultaPreco(@PathVariable("id") long id) {
-		Produto produtoRequerido = this.produtoService.findById(id); 
-		
-		if(produtoRequerido == null) {
-			return new ResponseEntity(new CustomErrorType("Produto com Id: " + id + " não foi encontrado."), HttpStatus.NOT_FOUND);
-		}else {
-			BigDecimal precoDoProduto = produtoRequerido.getPreco();
-			return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
-		}
-		
-		
+	public ResponseEntity<BigDecimal> consultaPreco(@PathVariable("id") long id) throws ObjetoInexistenteException {
+		Produto produtoRequerido = this.produtoService.findById(id);
+
+		BigDecimal precoDoProduto = produtoRequerido.getPreco();
+		return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
+
 //		BigDecimal precoDoProduto = null;
 //
 //		for (Produto produto : produtoService.findAllProdutos()) {
@@ -208,15 +188,11 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
-	public boolean consultaDisponibilidade(@PathVariable("id") long id) {
-		Produto produtoRequerido = this.produtoService.findById(id); 
-		
-		if(produtoRequerido == null) {
-			return false;
-		}else {
-			return true; 
-		}
-		
+	public boolean consultaDisponibilidade(@PathVariable("id") long id) throws ObjetoInexistenteException {
+		Produto produtoRequerido = this.produtoService.findById(id);
+		boolean disponibilidade = produtoRequerido.getDisponibilidade();
+
+		return disponibilidade;
 //		Boolean disponivel = false;
 //
 //		for (Produto produto : produtoService.findAllProdutos()) {

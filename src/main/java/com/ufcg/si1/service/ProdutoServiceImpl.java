@@ -1,16 +1,15 @@
 package com.ufcg.si1.service;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.util.Util;
+import exceptions.ObjetoInexistenteException;
+import exceptions.ObjetoJaExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufcg.si1.model.Lote;
 import com.ufcg.si1.model.Produto;
 
 @Service("produtoService")
@@ -26,12 +25,22 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 
-	public void saveProduto(Produto produto) {
-		this.produtosRepository.save(produto);
+	public Produto salvaProduto(Produto produto) throws ObjetoJaExistenteException {
+		String nome = produto.getNome();
+		String fabricante = produto.getFabricante();
+
+		if (this.doesProdutoExist(produto)) {
+			throw new ObjetoJaExistenteException("O produto " + nome +
+					" do fabricante " + fabricante + " ja esta cadastrado!");
+		}
+
+		produto = this.produtosRepository.save(produto);
+		return produto;
 	}
 
-	public void updateProduto(Produto produto) {
-		this.produtosRepository.save(produto);
+	public Produto atualizaProduto(Produto produto) throws ObjetoInexistenteException {
+		produto = this.produtosRepository.save(produto);
+		return produto;
 	}
 
 	public void deleteProdutoById(long id) {
@@ -49,8 +58,13 @@ public class ProdutoServiceImpl implements ProdutoService {
 		this.produtosRepository.deleteAll();
 	}
 
-	public Produto findById(long id) {
+	public Produto findById(long id) throws ObjetoInexistenteException {
 		Produto produto = this.produtosRepository.getProdutoById(id);
+
+		if (produto == null) {
+			throw new ObjetoInexistenteException("O produto com o id: " + id + " não foi encontrado");
+		}
+
 		return produto;
 	}
 
