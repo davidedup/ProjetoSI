@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.ufcg.si1.model.Lote;
+import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.model.DTO.LoteDTO;
 import com.ufcg.si1.repositories.LotesRepository;
+import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ public class LoteServiceImpl implements LoteService {
 
 	@Autowired
 	private LotesRepository lotesRepository;
+	private ProdutosRepository produtoRepository;
 
 	@Override
 	public Lote saveLote(Lote lote) {
@@ -71,7 +74,16 @@ public class LoteServiceImpl implements LoteService {
 
 	@Override
 	public Lote criarLote(long produtoId, LoteDTO loteDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Lote loteParaSalvar = null;
+		Produto produto = this.produtoRepository.findOne(produtoId);
+		
+		if(produto != null){
+			int numeroDeItens = loteDTO.getNumeroDeItens();
+			String validade = loteDTO.getDataDeValidade();
+			loteParaSalvar = new Lote(produtoId, produto, numeroDeItens, validade);
+			lotesRepository.save(loteParaSalvar);
+		}
+		
+		return loteParaSalvar;
 	}
 }
