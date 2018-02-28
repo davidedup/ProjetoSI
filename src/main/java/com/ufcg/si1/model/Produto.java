@@ -42,8 +42,7 @@ public class Produto {
 		this.preco = new BigDecimal(0);
 	}
 
-	public Produto(long id, String nome, String codigoBarra, String fabricante, String nomeCategoria) {
-		this.id = id;
+	public Produto(String nome, String codigoBarra, String fabricante, String nomeCategoria) {
 		this.nome = nome;
 		this.preco = new BigDecimal(0);
 		this.codigoBarra = codigoBarra;
