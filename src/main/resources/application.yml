@@ -5,6 +5,6 @@ spring:
     hibernate:
       ddl-auto: create-drop
   datasource:
-    url: jdbc:postgres://udxevglmkcgxfi:1038b8364a9ecb0071b0415dc62b4416001b9e0d961eeb98afbec2c70b1460f9@ec2-54-221-220-59.compute-1.amazonaws.com:5432/dbasrp2hm5gj2f
-    username: udxevglmkcgxfi
-    password: 1038b8364a9ecb0071b0415dc62b4416001b9e0d961eeb98afbec2c70b1460f9
+    url: jdbc:postgresql://localhost:5432/projetosi
+    username: mariana
+    password: mariana
