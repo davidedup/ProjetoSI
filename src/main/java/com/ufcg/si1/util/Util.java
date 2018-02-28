@@ -6,14 +6,14 @@ import java.util.List;
 
 public class Util {
 
-    public static <T> List<T> toList(Iterable<T> iterable) {
-        ArrayList<T> list = new ArrayList<T>();
+	public static <T> List<T> toList(Iterable<T> iterable) {
+		ArrayList<T> list = new ArrayList<T>();
 
-        for(T t: iterable) {
-            list.add(t);
-        }
+		for (T t : iterable) {
+			list.add(t);
+		}
 
-        return list;
-    }
+		return list;
+	}
 
 }

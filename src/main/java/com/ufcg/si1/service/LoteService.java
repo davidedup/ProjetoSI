@@ -22,4 +22,5 @@ public interface LoteService {
 	Lote saveLote(Lote lote);
 
 	Lote criarLote(long produtoId, LoteDTO loteDTO);
+
 }

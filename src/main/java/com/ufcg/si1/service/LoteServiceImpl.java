@@ -31,6 +31,7 @@ public class LoteServiceImpl implements LoteService {
 	@Override
 	public Lote findById(long id) {
 		Lote lote = this.lotesRepository.getLoteById(id);
+
 		return lote;
 	}
 
@@ -55,6 +56,7 @@ public class LoteServiceImpl implements LoteService {
 	public List<Lote> findAllLotes() {
 		Iterable<Lote> lotes = this.lotesRepository.findAll();
 		List<Lote> lotesList = Util.toList(lotes);
+		
 		return lotesList;
 	}
 
@@ -62,6 +64,7 @@ public class LoteServiceImpl implements LoteService {
 	public int size() {
 		List<Lote> lotes = this.findAllLotes();
 		int size = lotes.size();
+		
 		return size;
 	}
 
@@ -69,6 +72,7 @@ public class LoteServiceImpl implements LoteService {
 	public Iterator<Lote> getIterator() {
 		Iterable<Lote> lotes = this.findAllLotes();
 		Iterator iterator = lotes.iterator();
+		
 		return iterator;
 	}
 
@@ -86,4 +90,5 @@ public class LoteServiceImpl implements LoteService {
 		
 		return loteParaSalvar;
 	}
+
 }

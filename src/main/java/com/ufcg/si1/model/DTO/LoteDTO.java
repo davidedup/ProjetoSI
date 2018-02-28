@@ -29,4 +29,5 @@ public class LoteDTO {
     public void setDataDeValidade(String dataDeValidade) {
         this.dataDeValidade = dataDeValidade;
     }
+
 }

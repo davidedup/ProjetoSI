@@ -5,6 +5,7 @@ public class ObjetoInvalidoException extends Exception {
 	public ObjetoInvalidoException(String erro) {
 		super("ExcecaoDados: " + erro);
 	}
+
 }
 
 /*--- Formatted in Sun Java Convention Style on Mon, Oct 30, '00 ---*/

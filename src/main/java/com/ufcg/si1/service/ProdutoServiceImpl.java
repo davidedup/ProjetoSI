@@ -21,6 +21,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	public List<Produto> findAllProdutos() {
 		Iterable<Produto> produtos = this.produtosRepository.findAll();
 		List<Produto> produtosList = Util.toList(produtos);
+		
 		return produtosList;
 	}
 
@@ -35,11 +36,13 @@ public class ProdutoServiceImpl implements ProdutoService {
 		}
 
 		produto = this.produtosRepository.save(produto);
+		
 		return produto;
 	}
 
 	public Produto atualizaProduto(Produto produto) throws ObjetoInexistenteException {
         produto = this.produtosRepository.save(produto);
+        
         return produto;
 	}
 
@@ -71,6 +74,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	public boolean doesProdutoExist(Produto produto) {
 		long id = produto.getId();
 		boolean produtoExiste = this.produtosRepository.exists(id);
+		
 		return produtoExiste;
 	}
+	
 }

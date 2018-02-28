@@ -83,4 +83,5 @@ public class Lote {
                 ", dataDeValidade='" + dataDeValidade + '\'' +
                 '}';
     }
+
 }

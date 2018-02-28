@@ -13,37 +13,36 @@ import java.io.IOException;
 
 public class TokenFilter extends GenericFilterBean {
 
+	@Override
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
 
-    @Override
-    public void doFilter(ServletRequest servletRequest,
-                         ServletResponse servletResponse,
-                         FilterChain filterChain) throws IOException, ServletException {
+		String token = this.pegarToken(servletRequest);
+		this.tokenNuloTeste(token);
+		this.tokenValidoTeste(token);
+		filterChain.doFilter(servletRequest, servletResponse);
+	}
 
-        String token = this.pegarToken(servletRequest);
-        this.tokenNuloTeste(token);
-        this.tokenValidoTeste(token);
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
+	private String pegarToken(ServletRequest servletRequest) {
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		String header = request.getHeader("Authorization");
+		String token = header;
 
-    private String pegarToken(ServletRequest servletRequest) {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String header = request.getHeader("Authorization");
-        String token = header;
+		return token;
+	}
 
-        return token;
-    }
+	private void tokenNuloTeste(String token) throws ServletException {
+		if (token == null) {
+			throw new ServletException("Token inexistente ou inválido");
+		}
+	}
 
-    private void tokenNuloTeste(String token) throws ServletException {
-        if (token == null) {
-            throw new ServletException("Token inexistente ou inválido");
-        }
-    }
+	private void tokenValidoTeste(String token) throws ServletException {
+		try {
+			Jwts.parser().setSigningKey("pastel").parseClaimsJws(token).getBody();
+		} catch (SignatureException e) {
+			throw new ServletException("Token inválido");
+		}
+	}
 
-    private void tokenValidoTeste(String token) throws ServletException {
-        try {
-            Jwts.parser().setSigningKey("pastel").parseClaimsJws(token).getBody();
-        } catch (SignatureException e) {
-            throw new ServletException("Token inválido");
-        }
-    }
 }

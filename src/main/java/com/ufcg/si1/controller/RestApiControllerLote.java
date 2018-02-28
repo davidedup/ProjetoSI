@@ -25,8 +25,6 @@ public class RestApiControllerLote {
 	
 	LoteService loteService = new LoteServiceImpl();
 	
-	 
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Lote>> listarLotes() {
 		List<Lote> lotes = (List<Lote>) loteService.findAllLotes();
@@ -43,9 +41,9 @@ public class RestApiControllerLote {
 	public ResponseEntity<?> criarLote(@PathVariable("id") long produtoId, @RequestBody LoteDTO loteDTO) {
 		Lote lote = this.loteService.criarLote(produtoId, loteDTO);
 		
-		if(lote == null){
-			return new ResponseEntity( new CustomErrorType("Não foi possivel criar. Produto com id: " + produtoId + " não encontrado."), HttpStatus.NOT_FOUND);
-		}else{
+		if (lote == null) {
+			return new ResponseEntity(new CustomErrorType("Não foi possivel criar. Produto com id: " + produtoId + " não encontrado."), HttpStatus.NOT_FOUND);
+		} else {
 			return new ResponseEntity<>(lote, HttpStatus.CREATED);
 		}
 	}

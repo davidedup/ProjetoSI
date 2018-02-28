@@ -24,6 +24,7 @@ public class RestApiControllerAdmin {
 	@RequestMapping(value = "/autenticar", method = RequestMethod.POST)
 	public Token autenticar(@RequestBody Admin admin) throws ObjetoInvalidoException {
 		Token token = this.adminServiceImpl.autenticarAdmin(admin);
+		
 		return token;
 	}
 	

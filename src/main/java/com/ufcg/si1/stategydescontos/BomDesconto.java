@@ -8,4 +8,5 @@ public class BomDesconto implements Desconto {
 	public BigDecimal calculaDesconto(BigDecimal preco) {
 		return preco.multiply(new BigDecimal(0.90));
 	}
+	
 }

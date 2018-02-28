@@ -87,8 +87,8 @@ public class RestApiControllerProduto {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> criarProduto(@RequestBody Produto produto, UriComponentsBuilder ucBuilder)
 			throws ObjetoJaExistenteException {
-
 		Produto produtoSalvo = this.produtoService.salvaProduto(produto);
+		
 		return new ResponseEntity<>(produto, HttpStatus.CREATED);
 	}
 
@@ -121,14 +121,15 @@ public class RestApiControllerProduto {
 		}
 
 		this.produtoService.deleteProdutoById(id);
+		
 		return new ResponseEntity<Produto>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/preco/{id}", method = RequestMethod.GET)
 	public ResponseEntity<BigDecimal> consultaPreco(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
-
 		BigDecimal precoDoProduto = produtoRequerido.getPreco();
+		
 		return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
 	}
 

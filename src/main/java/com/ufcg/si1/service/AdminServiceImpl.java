@@ -38,6 +38,7 @@ public class AdminServiceImpl {
         }
 
         Token token = this.gerarToken(login);
+        
         return token;
 	}
 	
