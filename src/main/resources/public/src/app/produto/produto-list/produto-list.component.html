@@ -1,0 +1,7 @@
+<div class="container" *ngIf="produtos.length > 0">
+  <div class="list-group">
+    <a *ngFor="let produto of produtos">
+      {{ produto.nome }}
+    </a>
+  </div>
+</div>
