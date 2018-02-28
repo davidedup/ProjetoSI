@@ -7,3 +7,5 @@
 /.classpath/
 /.project/
 /bin/
+target/
+*.class
