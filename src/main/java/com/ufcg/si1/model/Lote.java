@@ -43,7 +43,7 @@ public class Lote {
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(long id) {
@@ -51,7 +51,7 @@ public class Lote {
     }
 
     public Produto getProduto() {
-        return produto;
+        return this.produto;
     }
 
     public void setProduto(Produto produto) {
@@ -59,7 +59,7 @@ public class Lote {
     }
 
     public int getNumeroDeItens() {
-        return numeroDeItens;
+        return this.numeroDeItens;
     }
 
     public void setNumeroDeItens(int numeroDeItens) {
@@ -67,7 +67,7 @@ public class Lote {
     }
 
     public String getDataDeValidade() {
-        return dataDeValidade;
+        return this.dataDeValidade;
     }
 
     public void setDataDeValidade(String dataDeValidade) {

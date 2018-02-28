@@ -15,7 +15,7 @@ public class LoteDTO {
     }
 
     public int getNumeroDeItens() {
-        return numeroDeItens;
+        return this.numeroDeItens;
     }
 
     public void setNumeroDeItens(int numeroDeItens) {
@@ -23,7 +23,7 @@ public class LoteDTO {
     }
 
     public String getDataDeValidade() {
-        return dataDeValidade;
+        return this.dataDeValidade;
     }
 
     public void setDataDeValidade(String dataDeValidade) {

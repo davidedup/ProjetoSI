@@ -54,7 +54,7 @@ public class Produto {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void mudaNome(String nome) {
@@ -62,7 +62,7 @@ public class Produto {
 	}
 
 	public BigDecimal getPreco() {
-		return preco;
+		return this.preco;
 	}
 
 	public void setPreco(BigDecimal preco) {
@@ -70,7 +70,7 @@ public class Produto {
 	}
 
 	public long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void mudaId(long codigo) {
@@ -78,7 +78,7 @@ public class Produto {
 	}
 
 	public String getFabricante() {
-		return fabricante;
+		return this.fabricante;
 	}
 
 	public void mudaFabricante(String fabricante) {
@@ -86,7 +86,7 @@ public class Produto {
 	}
 
 	public String getCodigoBarra() {
-		return codigoBarra;
+		return this.codigoBarra;
 	}
 
 	public void setCodigoBarra(String codigoBarra) {
@@ -107,6 +107,10 @@ public class Produto {
 
 	public boolean getDisponibilidade() {
 		return this.disponivel;
+	}
+	
+	public void setDisponibilidade(boolean disponivel) {
+		this.disponivel = disponivel;
 	}
 
 	// public BigDecimal precoComDesconto(BigDecimal preco) {
@@ -143,11 +147,6 @@ public class Produto {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
-	}
-
-	public void setDisponibilidade(boolean b) {
-		this.disponivel = false;
-
 	}
 
 }
