@@ -9,8 +9,10 @@ import com.ufcg.si1.comparator.CategoriaComparator;
 import com.ufcg.si1.comparator.FabricanteComparator;
 import com.ufcg.si1.comparator.NomeComparator;
 import com.ufcg.si1.comparator.PrecoComparator;
+
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,7 @@ public class RestApiControllerProduto {
 	@Autowired
 	ProdutoService produtoService = new ProdutoServiceImpl();
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Produto>> listarProdutos() {
 		List<Produto> produtos = produtoService.findAllProdutos();
@@ -51,7 +54,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/ordenar-nome", method = RequestMethod.GET)
 	public List<Produto> listarProdutosOrdenadosPeloNome() {
 		List<Produto> produtos = this.produtoService.findAllProdutos();
-		Comparator nomeComparator = new NomeComparator();
+		Comparator<Produto> nomeComparator = new NomeComparator();
 		Collections.sort(produtos, nomeComparator);
 
 		return produtos;
@@ -60,7 +63,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/ordenar-preco", method = RequestMethod.GET)
 	public List<Produto> listarProdutosOrdenadosPeloPreco() {
 		List<Produto> produtos = this.produtoService.findAllProdutos();
-		Comparator precoComparator = new PrecoComparator();
+		Comparator<Produto> precoComparator = new PrecoComparator();
 		Collections.sort(produtos, precoComparator);
 
 		return produtos;
@@ -69,7 +72,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/ordenar-categoria", method = RequestMethod.GET)
 	public List<Produto> listarProdutosOrdenadosPelaCategoria() {
 		List<Produto> produtos = this.produtoService.findAllProdutos();
-		Comparator categoriaComparator = new CategoriaComparator();
+		Comparator<Produto> categoriaComparator = new CategoriaComparator();
 		Collections.sort(produtos, categoriaComparator);
 
 		return produtos;
@@ -78,7 +81,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/ordenar-fabricante", method = RequestMethod.GET)
 	public List<Produto> listarProdutosOrdenadosPeloFabricante() {
 		List<Produto> produtos = this.produtoService.findAllProdutos();
-		Comparator fabricanteComparator = new FabricanteComparator();
+		Comparator<Produto> fabricanteComparator = new FabricanteComparator();
 		Collections.sort(produtos, fabricanteComparator);
 
 		return produtos;
@@ -87,7 +90,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> criarProduto(@RequestBody Produto produto, UriComponentsBuilder ucBuilder)
 			throws ObjetoJaExistenteException {
-		Produto produtoSalvo = this.produtoService.salvaProduto(produto);
+		this.produtoService.salvaProduto(produto);
 		
 		return new ResponseEntity<>(produto, HttpStatus.CREATED);
 	}
@@ -103,7 +106,7 @@ public class RestApiControllerProduto {
 	public ResponseEntity<?> atualizaProduto(@PathVariable("id") long id, @RequestBody Produto produto)
 			throws ObjetoInexistenteException {
 		try {
-			Produto produtoRequerido = this.produtoService.findById(id);
+			this.produtoService.findById(id);
 		} catch (ObjetoInexistenteException e) {
 			throw new ObjetoInexistenteException("Não foi possivel atualizar. " + e.getMessage());
 		}
@@ -115,7 +118,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deletaProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		try {
-			Produto produtoParaDeletar = this.produtoService.findById(id);
+			this.produtoService.findById(id);
 		} catch (ObjetoInexistenteException e) {
 			throw new ObjetoInexistenteException("Não foi possivel deletar o produto. " + e.getMessage());
 		}

@@ -4,12 +4,10 @@ import com.ufcg.si1.model.Produto;
 
 import java.util.Comparator;
 
-public class CategoriaComparator implements Comparator {
+public class CategoriaComparator implements Comparator<Produto> {
     
 	@Override
-    public int compare(Object o1, Object o2) {
-        Produto produto1 = (Produto) o1;
-        Produto produto2 = (Produto) o2;
+    public int compare(Produto produto1, Produto produto2) {
         String categoria1 = produto1.getCategoria();
         String categoria2 = produto2.getCategoria();
 

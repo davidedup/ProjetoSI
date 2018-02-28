@@ -5,12 +5,10 @@ import com.ufcg.si1.model.Produto;
 import java.math.BigDecimal;
 import java.util.Comparator;
 
-public class PrecoComparator implements Comparator {
+public class PrecoComparator implements Comparator<Produto> {
     
 	@Override
-    public int compare(Object o1, Object o2) {
-        Produto produto1 = (Produto) o1;
-        Produto produto2 = (Produto) o2;
+	public int compare(Produto produto1, Produto produto2) {
         BigDecimal preco1 = produto1.getPreco();
         BigDecimal preco2 = produto2.getPreco();
 

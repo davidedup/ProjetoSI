@@ -52,7 +52,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	public Iterator<Produto> getIterator() {
 		Iterable<Produto> produtos = this.produtosRepository.findAll();
-		Iterator iterator = produtos.iterator();
+		Iterator<Produto> iterator = produtos.iterator();
 
 		return iterator;
 	}

@@ -30,7 +30,7 @@ public class RestApiControllerLote {
 		List<Lote> lotes = (List<Lote>) loteService.findAllLotes();
 
 		if (lotes.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Lote>>(HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<List<Lote>>(lotes, HttpStatus.OK);
@@ -42,10 +42,10 @@ public class RestApiControllerLote {
 		Lote lote = this.loteService.criarLote(produtoId, loteDTO);
 		
 		if (lote == null) {
-			return new ResponseEntity(new CustomErrorType("Não foi possivel criar. Produto com id: " + produtoId + " não encontrado."), HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(lote, HttpStatus.CREATED);
+			return new ResponseEntity<>(new CustomErrorType("Não foi possivel criar. Produto com id: " + produtoId + " não encontrado."), HttpStatus.NOT_FOUND);
 		}
+
+		return new ResponseEntity<>(lote, HttpStatus.CREATED);
 	}
-	
+
 }

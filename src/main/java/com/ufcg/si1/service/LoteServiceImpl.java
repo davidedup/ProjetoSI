@@ -71,7 +71,7 @@ public class LoteServiceImpl implements LoteService {
 	@Override
 	public Iterator<Lote> getIterator() {
 		Iterable<Lote> lotes = this.findAllLotes();
-		Iterator iterator = lotes.iterator();
+		Iterator<Lote> iterator = lotes.iterator();
 		
 		return iterator;
 	}
