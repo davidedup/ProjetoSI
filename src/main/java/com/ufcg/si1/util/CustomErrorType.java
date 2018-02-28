@@ -1,7 +1,7 @@
 package com.ufcg.si1.util;
 
 
-public class CustomErrorType  {
+public class CustomErrorType {
 
     private String errorMessage;
 

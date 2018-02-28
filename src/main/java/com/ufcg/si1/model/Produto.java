@@ -32,8 +32,6 @@ public class Produto {
 
     @Column(name = "situacao")
 	public boolean disponivel;
-    
-    public Desconto desconto;
 
 	public Produto() {
 		this.id = 0;
