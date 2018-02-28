@@ -6,6 +6,8 @@ import exceptions.ObjetoInvalidoException;
 
 import javax.persistence.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
@@ -31,8 +33,14 @@ public class Produto {
 	private String categoria;
 
     @Column(name = "situacao")
-	public boolean disponivel;
-
+	private boolean disponivel;
+    
+//    @Column(name = "desconto")
+//    @Autowired
+//    @ManyToOne
+//    @JoinColumn(name = "id_desconto")
+//    private Desconto desconto;
+    
 	public Produto() {
 		this.id = 0;
 		this.preco = new BigDecimal(0);
@@ -47,6 +55,7 @@ public class Produto {
 		this.fabricante = fabricante;
 		this.categoria = nomeCategoria;
 		this.disponivel = false;
+//		this.desconto = new SemDesconto();
 	}
 
 	public String getNome() {
@@ -104,6 +113,11 @@ public class Produto {
 	public boolean getDisponibilidade() {
 		return this.disponivel;
 	}
+	
+//	public BigDecimal precoComDesconto(BigDecimal preco) {
+//		BigDecimal precoComDesconto =  this.desconto.calculaDesconto(preco);
+//		return precoComDesconto;
+//	}
 
 	@Override
 	public int hashCode() {
