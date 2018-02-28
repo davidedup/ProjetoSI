@@ -9,18 +9,18 @@ import exceptions.ObjetoJaExistenteException;
 
 public interface ProdutoService {
 
-	List<Produto> findAllProdutos();
+	public List<Produto> findAllProdutos();
 
-	Produto salvaProduto(Produto produto) throws ObjetoJaExistenteException;
+	public Produto salvaProduto(Produto produto) throws ObjetoJaExistenteException;
 
-	Produto findById(long id) throws ObjetoInexistenteException;
+	public Produto findById(long id) throws ObjetoInexistenteException;
 
-	Produto atualizaProduto(Produto user) throws ObjetoInexistenteException;
+	public Produto atualizaProduto(Produto user) throws ObjetoInexistenteException;
 
-	void deleteProdutoById(long id);
+	public void deleteProdutoById(long id);
 
-	Iterator<Produto> getIterator();
+	public Iterator<Produto> getIterator();
 
-	boolean doesProdutoExist(Produto produto);
+	public boolean doesProdutoExist(Produto produto);
 
 }

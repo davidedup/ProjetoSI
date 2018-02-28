@@ -7,20 +7,20 @@ import com.ufcg.si1.model.DTO.LoteDTO;
 
 public interface LoteService {
 
-	Iterable<Lote> findAllLotes();
+	public Iterable<Lote> findAllLotes();
 
-	Lote findById(long id);
+	public Lote findById(long id);
 
-	void updateProduto(Lote user);
+	public void updateProduto(Lote user);
 
-	void deleteLoteById(long id);
+	public void deleteLoteById(long id);
 
-	int size();
+	public int size();
 
-	Iterator<Lote> getIterator();
+	public Iterator<Lote> getIterator();
 
-	Lote saveLote(Lote lote);
+	public Lote saveLote(Lote lote);
 
-	Lote criarLote(long produtoId, LoteDTO loteDTO);
+	public Lote criarLote(long produtoId, LoteDTO loteDTO);
 
 }
