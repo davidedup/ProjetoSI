@@ -1,7 +1,6 @@
 package com.ufcg.si1.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Util {

@@ -1,9 +1,7 @@
 package com.ufcg.si1.service;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import com.ufcg.si1.model.Lote;
 import com.ufcg.si1.model.Produto;
@@ -11,6 +9,7 @@ import com.ufcg.si1.model.DTO.LoteDTO;
 import com.ufcg.si1.repositories.LotesRepository;
 import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.util.Util;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

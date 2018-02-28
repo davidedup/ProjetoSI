@@ -2,52 +2,47 @@ package com.ufcg.si1.model;
 
 import java.math.BigDecimal;
 
-import exceptions.ObjetoInvalidoException;
-
 import javax.persistence.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private long id;
 
-    @Column(name = "nome")
+	@Column(name = "nome")
 	private String nome;
 
-    @Column(name = "preco")
+	@Column(name = "preco")
 	private BigDecimal preco;
 
-    @Column(name = "codigo_barra")
+	@Column(name = "codigo_barra")
 	private String codigoBarra;
 
-    @Column(name = "fabricante")
+	@Column(name = "fabricante")
 	private String fabricante;
 
-    @Column(name = "categoria")
+	@Column(name = "categoria")
 	private String categoria;
 
-    @Column(name = "situacao")
+	@Column(name = "situacao")
 	private boolean disponivel;
-    
-//    @Column(name = "desconto")
-//    @Autowired
-//    @ManyToOne
-//    @JoinColumn(name = "id_desconto")
-//    private Desconto desconto;
-    
+
+	// @Column(name = "desconto")
+	// @Autowired
+	// @ManyToOne
+	// @JoinColumn(name = "id_desconto")
+	// private Desconto desconto;
+
 	public Produto() {
 		this.id = 0;
 		this.preco = new BigDecimal(0);
 	}
 
-	public Produto(long id, String nome, String codigoBarra, String fabricante,
-			String nomeCategoria) {
+	public Produto(long id, String nome, String codigoBarra, String fabricante, String nomeCategoria) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = new BigDecimal(0);
@@ -55,7 +50,7 @@ public class Produto {
 		this.fabricante = fabricante;
 		this.categoria = nomeCategoria;
 		this.disponivel = false;
-//		this.desconto = new SemDesconto();
+		// this.desconto = new SemDesconto();
 	}
 
 	public String getNome() {
@@ -105,7 +100,7 @@ public class Produto {
 	public void mudaCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-		
+
 	public void mudaDisponibilidade() {
 		this.disponivel = !this.disponivel;
 	}
@@ -113,11 +108,11 @@ public class Produto {
 	public boolean getDisponibilidade() {
 		return this.disponivel;
 	}
-	
-//	public BigDecimal precoComDesconto(BigDecimal preco) {
-//		BigDecimal precoComDesconto =  this.desconto.calculaDesconto(preco);
-//		return precoComDesconto;
-//	}
+
+	// public BigDecimal precoComDesconto(BigDecimal preco) {
+	// BigDecimal precoComDesconto = this.desconto.calculaDesconto(preco);
+	// return precoComDesconto;
+	// }
 
 	@Override
 	public int hashCode() {
@@ -151,8 +146,8 @@ public class Produto {
 	}
 
 	public void setDisponibilidade(boolean b) {
-		this.disponivel = false; 
-		
+		this.disponivel = false;
+
 	}
 
 }
