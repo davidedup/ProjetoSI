@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Lote } from '../lote.model';
 
 @Component({
   selector: 'app-lista-lotes',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaLotesComponent implements OnInit {
 
-  constructor() { }
+  private lotes: Array<Lote>;
+
+  constructor() {
+    this.lotes = new Array<Lote>();
+  }
 
   ngOnInit() {
   }

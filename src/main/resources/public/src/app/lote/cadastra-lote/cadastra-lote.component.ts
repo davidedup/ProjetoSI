@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Lote } from '../lote.model';
 
 @Component({
   selector: 'app-cadastra-lote',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastraLoteComponent implements OnInit {
 
-  constructor() { }
+  private lote: Lote;
+
+  constructor() {
+    this.lote = new Lote();
+  }
 
   ngOnInit() {
   }
