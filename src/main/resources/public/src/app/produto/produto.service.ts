@@ -8,7 +8,7 @@ import { Produto } from './produto.model';
 export class ProdutoService {
 
   private result: any;
-  private produtos: Array<Produto>;
+  private produtos: Array<Produto> = new Array<Produto>();
 
   constructor(private http: Http) {
     this.getProdutos().subscribe(resp => {
@@ -18,8 +18,8 @@ export class ProdutoService {
 
   getProdutos() {
     return this.http
-      .get('http://localhost:8081/produto')
-      .map(result => (this.result = result.json().data as Array<Produto>));
+      .get('http://localhost:8080/produto')
+      .map(result => (this.result = result.json() as Array<Produto>));
   }
 
 }

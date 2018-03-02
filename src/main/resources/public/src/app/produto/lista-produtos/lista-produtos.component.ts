@@ -9,7 +9,7 @@ import { ProdutoService } from '../produto.service';
 })
 export class ListaProdutosComponent implements OnInit {
 
-  private produtos: Array<Produto>;
+  private produtos: Array<Produto> = new Array<Produto>();
 
   constructor(private produtoService: ProdutoService) { }
 
