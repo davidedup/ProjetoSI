@@ -1,7 +1,6 @@
 package com.ufcg.si1.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.model.Venda;
 import com.ufcg.si1.model.VendaItem;
 import com.ufcg.si1.service.VendaService;

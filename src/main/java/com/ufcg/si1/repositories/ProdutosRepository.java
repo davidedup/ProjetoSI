@@ -2,7 +2,6 @@ package com.ufcg.si1.repositories;
 
 import com.ufcg.si1.model.Produto;
 
-import java.util.ArrayList;
 
 import org.springframework.data.repository.CrudRepository;
 

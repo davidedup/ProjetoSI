@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
-import com.ufcg.si1.stategydescontos.Desconto;
-import com.ufcg.si1.stategydescontos.SemDesconto;
-
 @Entity
 @Table(name = "tb_produto")
 public class Produto {

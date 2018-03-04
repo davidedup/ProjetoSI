@@ -1,11 +1,9 @@
 package com.ufcg.si1.service;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.ufcg.si1.model.ItemVenda;
 import com.ufcg.si1.model.Lote;
 import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.model.VendaItem;
@@ -15,7 +13,6 @@ import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.util.Util;
 
 
-import org.aspectj.weaver.patterns.ITokenSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

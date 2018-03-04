@@ -1,14 +1,11 @@
 package com.ufcg.si1.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.model.Venda;
 import com.ufcg.si1.model.VendaItem;
-import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.repositories.VendasRepository;
 import com.ufcg.si1.util.Util;
 import java.util.List;
