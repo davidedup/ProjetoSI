@@ -2,6 +2,7 @@ package com.ufcg.si1.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.ufcg.si1.model.ItemVenda;
@@ -12,6 +13,7 @@ import com.ufcg.si1.model.DTO.LoteDTO;
 import com.ufcg.si1.repositories.LotesRepository;
 import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.util.Util;
+
 
 import org.aspectj.weaver.patterns.ITokenSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +40,11 @@ public class LoteServiceImpl implements LoteService {
 	}
 
 	/**
-	 * Faz o update do lote, lote é recebido como parâmetro
-	 * já com o novo produto como atributo
+	 * Faz o update do lote, lote é recebido como parâmetro já com o novo produto
+	 * como atributo
 	 *
-	 * @param lote lote a ser atualizado
+	 * @param lote
+	 *            lote a ser atualizado
 	 */
 	@Override
 	public void updateProduto(Lote lote) {
@@ -58,7 +61,7 @@ public class LoteServiceImpl implements LoteService {
 	public List<Lote> findAllLotes() {
 		Iterable<Lote> lotes = this.lotesRepository.findAll();
 		List<Lote> lotesList = Util.toList(lotes);
-		
+
 		return lotesList;
 	}
 
@@ -66,7 +69,7 @@ public class LoteServiceImpl implements LoteService {
 	public int size() {
 		List<Lote> lotes = this.findAllLotes();
 		int size = lotes.size();
-		
+
 		return size;
 	}
 
@@ -74,7 +77,7 @@ public class LoteServiceImpl implements LoteService {
 	public Iterator<Lote> getIterator() {
 		Iterable<Lote> lotes = this.findAllLotes();
 		Iterator<Lote> iterator = lotes.iterator();
-		
+
 		return iterator;
 	}
 
@@ -82,47 +85,65 @@ public class LoteServiceImpl implements LoteService {
 	public Lote criarLote(long produtoId, LoteDTO loteDTO) {
 		Lote loteParaSalvar = null;
 		Produto produto = this.produtoRepository.findOne(produtoId);
-		
-		if(produto != null){
+
+		if (produto != null) {
 			int numeroDeItens = loteDTO.getNumeroDeItens();
 			String validade = loteDTO.getDataDeValidade();
 			loteParaSalvar = new Lote(produtoId, produto, numeroDeItens, validade);
 			this.lotesRepository.save(loteParaSalvar);
 		}
-		
+
 		return loteParaSalvar;
 	}
 
-	//TODO: excluir do mais perto de vencer e vender de varios lotes, caso um nao tenha o suficiente pegar de outro
+	// TODO: excluir do mais perto de vencer e vender de varios lotes, caso um nao
+	// tenha o suficiente pegar de outro
 	@Override
 	public void atualizaQuantProduto(List<VendaItem> produtosVendidos) {
-		List<Lote> lotes =  this.findAllLotes();
-		
+		List<Lote> lotes = this.findAllLotes();
+
 		for (VendaItem vendaItem : produtosVendidos) {
 			Produto produto = vendaItem.getProduto();
-			int quantidade =  vendaItem.getQuantidade();
-			
+			int quantidade = vendaItem.getQuantidade();
+
 			for (Lote lote : lotes) {
-				if(lote.getProduto().equals(produto)) {
-					lote.setNumeroDeItens( lote.getNumeroDeItens() - quantidade);
+				if (lote.getProduto().equals(produto)) {
+					lote.setNumeroDeItens(lote.getNumeroDeItens() - quantidade);
 				}
 			}
 
-		}	
+		}
 	}
 
 	@Override
 	public int quantProduto(long produtoId) {
 		List<Lote> lotes = this.findAllLotes();
 		int quantidade = 0;
-		
+
 		for (Lote lote : lotes) {
-			if(lote.getProduto().getId() == produtoId) {
+			if (lote.getProduto().getId() == produtoId) {
 				quantidade += lote.getNumeroDeItens();
 			}
 		}
-		
+
 		return quantidade;
 	}
-	
+
+	@Override
+	public int quantLotes() {
+		return this.findAllLotes().size();
+	}
+
+	@Override
+	public List<String> getValidades() {
+		List<String> validade = new LinkedList<String>();
+		List<Lote> lotes = this.findAllLotes();
+
+		for (Lote lote : lotes) {
+			validade.add(lote.getDataDeValidade());
+		}
+
+		return validade;
+	}
+
 }

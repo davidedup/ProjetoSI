@@ -48,9 +48,21 @@ public class RestApiControllerLote {
 	}
 
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.POST)
-	public ResponseEntity<?> qauntidadeProduto(@PathVariable("id") long produtoId) {
+	public ResponseEntity<?> quantidadeProduto(@PathVariable("id") long produtoId) {
 		int quantidade = this.loteService.quantProduto(produtoId);
 		return new ResponseEntity<>(quantidade, HttpStatus.OK );
+	}
+	
+	@RequestMapping(value = "/quantidade", method = RequestMethod.POST)
+	public ResponseEntity<?> qauntidadeLotes(@PathVariable("id") long produtoId) {
+		int quantidade = this.loteService.quantLotes();
+		return new ResponseEntity<>(quantidade, HttpStatus.OK );
+	}
+	
+	@RequestMapping(value = "/validades", method = RequestMethod.GET)
+	public ResponseEntity<?> validades()  {
+		List<String> validades = this.loteService.getValidades();
+		return new ResponseEntity<>(validades, HttpStatus.OK);
 	}
 	
 }

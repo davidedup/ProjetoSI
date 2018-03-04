@@ -32,6 +32,10 @@ public interface LoteService {
 
 	public int quantProduto(long produtoId);
 
+	public int quantLotes();
+
+	public List<String> getValidades();
+
 
 
 }

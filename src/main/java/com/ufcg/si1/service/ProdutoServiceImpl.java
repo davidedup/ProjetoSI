@@ -80,5 +80,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 		
 		return produtoExiste;
 	}
+
+
+	@Override
+	public int quantProduto() {
+		int quantProdutos =  this.findAllProdutos().size();
+		return quantProdutos;
+	}
+	
+	
 	
 }
