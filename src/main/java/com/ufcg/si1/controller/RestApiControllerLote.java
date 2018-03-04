@@ -47,4 +47,10 @@ public class RestApiControllerLote {
 		return new ResponseEntity<>(lote, HttpStatus.CREATED);
 	}
 
+	@RequestMapping(value = "/produto/{id}", method = RequestMethod.POST)
+	public ResponseEntity<?> qauntidadeProduto(@PathVariable("id") long produtoId) {
+		int quantidade = this.loteService.quantProduto(produtoId);
+		return new ResponseEntity<>(quantidade, HttpStatus.OK );
+	}
+	
 }

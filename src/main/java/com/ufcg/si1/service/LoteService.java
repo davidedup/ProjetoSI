@@ -30,6 +30,8 @@ public interface LoteService {
 
 	public void atualizaQuantProduto(List<VendaItem> produtosVendidos);
 
+	public int quantProduto(long produtoId);
+
 
 
 }

@@ -110,5 +110,19 @@ public class LoteServiceImpl implements LoteService {
 
 		}	
 	}
+
+	@Override
+	public int quantProduto(long produtoId) {
+		List<Lote> lotes = this.findAllLotes();
+		int quantidade = 0;
+		
+		for (Lote lote : lotes) {
+			if(lote.getProduto().getId() == produtoId) {
+				quantidade += lote.getNumeroDeItens();
+			}
+		}
+		
+		return quantidade;
+	}
 	
 }
