@@ -40,6 +40,7 @@ public class Venda {
 		this.dataDaVenda = dataDaVenda;
 	}
 	
+	//TODO: calcular com Desconto, por enqaunto desconto ta em produto
 	public BigDecimal calculaTotal() {
 		BigDecimal totalDaVenda = new BigDecimal(0.0);
 		
