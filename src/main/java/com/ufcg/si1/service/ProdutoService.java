@@ -1,5 +1,6 @@
 package com.ufcg.si1.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,5 +23,4 @@ public interface ProdutoService {
 	public Iterator<Produto> getIterator();
 
 	public boolean doesProdutoExist(Produto produto);
-
 }

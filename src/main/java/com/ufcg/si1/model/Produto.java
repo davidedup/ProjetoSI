@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
+import com.ufcg.si1.stategydescontos.Desconto;
+import com.ufcg.si1.stategydescontos.SemDesconto;
+
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
@@ -31,12 +34,8 @@ public class Produto {
 	@Column(name = "situacao")
 	private boolean disponivel;
 
-	// @Column(name = "desconto")
-	// @Autowired
-	// @ManyToOne
-	// @JoinColumn(name = "id_desconto")
-	// private Desconto desconto;
-
+	//private Desconto desconto;
+	
 	public Produto() {
 		this.id = 0;
 		this.preco = new BigDecimal(0);
@@ -49,7 +48,7 @@ public class Produto {
 		this.fabricante = fabricante;
 		this.categoria = nomeCategoria;
 		this.disponivel = false;
-		// this.desconto = new SemDesconto();
+	//	this.desconto = new SemDesconto();
 	}
 
 	public String getNome() {

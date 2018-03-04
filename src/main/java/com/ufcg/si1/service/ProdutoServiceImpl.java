@@ -1,5 +1,6 @@
 package com.ufcg.si1.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,6 +72,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 		return produto;
 	}
 
+	
+	//TODO: mudar para portugues
 	public boolean doesProdutoExist(Produto produto) {
 		long id = produto.getId();
 		boolean produtoExiste = this.produtosRepository.exists(id);
