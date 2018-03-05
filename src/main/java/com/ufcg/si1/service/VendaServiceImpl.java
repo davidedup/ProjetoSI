@@ -45,4 +45,12 @@ public class VendaServiceImpl implements VendaService {
 		return totalDasVendas;
 	}
 
+	@Override
+	public Venda cancelaVenda(long id) {
+		Venda venda = this.vendasRepository.findOne(id);
+		this.vendasRepository.delete(id);
+		return venda;
+		
+	}
+
 }

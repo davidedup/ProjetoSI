@@ -14,4 +14,6 @@ public interface VendaService {
 
 	public BigDecimal calculaTotalDeVendas();
 
+	public Venda cancelaVenda(long id);
+
 }

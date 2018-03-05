@@ -15,6 +15,7 @@ import com.ufcg.si1.model.Venda;
 import com.ufcg.si1.model.VendaItem;
 import com.ufcg.si1.service.VendaService;
 import com.ufcg.si1.service.VendaServiceImpl;
+import com.ufcg.si1.util.CustomErrorType;
 
 
 @RestController
@@ -41,5 +42,17 @@ public class RestApiControllerVenda {
 		BigDecimal caixa = this.vendaService.calculaTotalDeVendas();
 		return new ResponseEntity<BigDecimal>(caixa, HttpStatus.CREATED);
 	}
+	
+	@RequestMapping(value = "/cancela", method = RequestMethod.POST)
+	public ResponseEntity<?> cancelaVenda(@RequestBody long id){
+		Venda venda = this.vendaService.cancelaVenda(id);
+		
+		if(venda == null) {
+			return new ResponseEntity<>(new CustomErrorType("Venda com id: " + id + ". Não foi efetuada e não pode ser cancelada"), HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<>("Venda com id: " + id + "apagada", HttpStatus.CREATED);
+	}
+	
 	
 }
