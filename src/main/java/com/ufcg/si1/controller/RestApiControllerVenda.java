@@ -31,13 +31,13 @@ public class RestApiControllerVenda {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/vendas", method = RequestMethod.POST)
+	@RequestMapping(value = "/vendas", method = RequestMethod.GET)
 	public ResponseEntity<List<Venda>> listarVendas(){
 		List<Venda> vendas = this.vendaService.findAllLotes();		
 		return new ResponseEntity<List<Venda>>(vendas, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/caixa", method = RequestMethod.POST)
+	@RequestMapping(value = "/caixa", method = RequestMethod.GET)
 	public ResponseEntity<BigDecimal> calculaTotalDeVendas(){
 		BigDecimal caixa = this.vendaService.calculaTotalDeVendas();
 		return new ResponseEntity<BigDecimal>(caixa, HttpStatus.CREATED);
