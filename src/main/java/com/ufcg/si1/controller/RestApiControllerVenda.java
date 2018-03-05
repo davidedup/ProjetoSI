@@ -54,5 +54,4 @@ public class RestApiControllerVenda {
 		return new ResponseEntity<>("Venda com id: " + id + "apagada", HttpStatus.CREATED);
 	}
 	
-	
 }

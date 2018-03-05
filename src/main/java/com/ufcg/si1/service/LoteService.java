@@ -33,6 +33,8 @@ public interface LoteService {
 
 	public List<String> getValidades();
 
+	public void incrementaQuantProdutos(List<VendaItem> produtosVendidos);
+
 
 
 }

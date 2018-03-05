@@ -20,7 +20,7 @@ public class VendaServiceImpl implements VendaService {
 	public Venda cadastraVenda(List<VendaItem> produtosVendidos, String dataDaVenda) {
 		Venda vendaParaSalva = new Venda(produtosVendidos, dataDaVenda);
 		
-		loteService.atualizaQuantProduto(produtosVendidos);
+		this.loteService.atualizaQuantProduto(produtosVendidos);
 		
 		return vendasRepository.save(vendaParaSalva);
 		
@@ -48,6 +48,7 @@ public class VendaServiceImpl implements VendaService {
 	@Override
 	public Venda cancelaVenda(long id) {
 		Venda venda = this.vendasRepository.findOne(id);
+		this.loteService.incrementaQuantProdutos(venda.getProdutosVendidos());
 		this.vendasRepository.delete(id);
 		return venda;
 		

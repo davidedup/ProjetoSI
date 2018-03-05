@@ -143,4 +143,23 @@ public class LoteServiceImpl implements LoteService {
 		return validade;
 	}
 
+	//TODO: esse metodo ficou ducplicado .. colocar um boolean para decidir se adc ou diminui ??
+	@Override
+	public void incrementaQuantProdutos(List<VendaItem> produtosVendidos) {
+		List<Lote> lotes = this.findAllLotes();
+		
+		for (VendaItem vendaItem : produtosVendidos) {
+			Produto produto = vendaItem.getProduto();
+			int quantidade = vendaItem.getQuantidade();
+
+			for (Lote lote : lotes) {
+				if (lote.getProduto().equals(produto)) {
+					lote.setNumeroDeItens(lote.getNumeroDeItens() + quantidade);
+				}
+			}
+
+		}
+		
+	}
+
 }
