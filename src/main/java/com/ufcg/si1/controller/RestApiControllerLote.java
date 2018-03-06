@@ -61,7 +61,8 @@ public class RestApiControllerLote {
 	
 	@RequestMapping(value = "/quantidade", method = RequestMethod.GET)
 	public ResponseEntity<?> quantidadeLotes() {
-		int quantidade = this.loteService.quantLotes();
+        int quantidade = this.loteService.quantLotes();
+        
 		return new ResponseEntity<>(quantidade, HttpStatus.OK);
 	}
 	
