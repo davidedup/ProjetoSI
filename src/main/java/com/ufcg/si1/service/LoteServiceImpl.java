@@ -21,7 +21,8 @@ public class LoteServiceImpl implements LoteService {
 
 	@Autowired
 	private LotesRepository lotesRepository;
-	private ProdutosRepository produtoRepository;
+	@Autowired
+	private ProdutosRepository produtosRepository;
 
 	@Override
 	public Lote saveLote(Lote lote) {
@@ -80,7 +81,7 @@ public class LoteServiceImpl implements LoteService {
 	@Override
 	public Lote criarLote(long produtoId, LoteDTO loteDTO) {
 		Lote loteParaSalvar = null;
-		Produto produto = this.produtoRepository.findOne(produtoId);
+		Produto produto = this.produtosRepository.findOne(produtoId);
 
 		if (produto != null) {
 			int numeroDeItens = loteDTO.getNumeroDeItens();
