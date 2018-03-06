@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
+import com.ufcg.si1.stategydescontos.Desconto;
+
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
@@ -25,13 +27,11 @@ public class Produto {
 	@Column(name = "fabricante")
 	private String fabricante;
 
-	@Column(name = "categoria")
-	private String categoria;
-
 	@Column(name = "situacao")
 	private boolean disponivel;
 
-	//private Desconto desconto;
+	@Transient
+	private Categoria categoria;
 	
 	public Produto() {
 		this.id = 0;
@@ -43,9 +43,8 @@ public class Produto {
 		this.preco = new BigDecimal(0);
 		this.codigoBarra = codigoBarra;
 		this.fabricante = fabricante;
-		this.categoria = nomeCategoria;
 		this.disponivel = false;
-	//	this.desconto = new SemDesconto();
+		this.categoria = new Categoria(nomeCategoria);
 	}
 
 	public String getNome() {
@@ -80,20 +79,20 @@ public class Produto {
 		this.fabricante = fabricante;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	public String getCodigoBarra() {
 		return this.codigoBarra;
 	}
 
 	public void setCodigoBarra(String codigoBarra) {
 		this.codigoBarra = codigoBarra;
-	}
-
-	public String getCategoria() {
-		return this.categoria;
-	}
-
-	public void mudaCategoria(String categoria) {
-		this.categoria = categoria;
 	}
 
 	public void mudaDisponibilidade() {
@@ -108,10 +107,11 @@ public class Produto {
 		this.disponivel = disponivel;
 	}
 
-	// public BigDecimal precoComDesconto(BigDecimal preco) {
-	// BigDecimal precoComDesconto = this.desconto.calculaDesconto(preco);
-	// return precoComDesconto;
-	// }
+	 public BigDecimal precoComDesconto() {
+		 Desconto desconto = this.categoria.getDesconto();
+		 BigDecimal precoComDesconto =  desconto.calculaDesconto(this.preco);
+		 return precoComDesconto;
+	 }
 
 	@Override
 	public int hashCode() {

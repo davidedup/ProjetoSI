@@ -8,8 +8,8 @@ public class CategoriaComparator implements Comparator<Produto> {
     
 	@Override
     public int compare(Produto produto1, Produto produto2) {
-        String categoria1 = produto1.getCategoria();
-        String categoria2 = produto2.getCategoria();
+        String categoria1 = produto1.getCategoria().getCategoria();
+        String categoria2 = produto2.getCategoria().getCategoria();
 
         return categoria1.compareTo(categoria2);
     }
