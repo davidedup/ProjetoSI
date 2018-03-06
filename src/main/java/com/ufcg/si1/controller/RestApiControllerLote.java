@@ -28,14 +28,13 @@ public class RestApiControllerLote {
 	public ResponseEntity<List<Lote>> listarLotes() {
 		List<Lote> lotes = (List<Lote>) loteService.findAllLotes();
 
-		if (lotes.isEmpty()) {
+		if (lotes.isEmpty() || lotes == null) {
 			return new ResponseEntity<List<Lote>>(HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<List<Lote>>(lotes, HttpStatus.OK);
 	}
 
-	
 	@RequestMapping(value = "/produto/{id}/lote", method = RequestMethod.POST)
 	public ResponseEntity<?> criarLote(@PathVariable("id") long produtoId, @RequestBody LoteDTO loteDTO) {
 		Lote lote = this.loteService.criarLote(produtoId, loteDTO);
@@ -50,6 +49,11 @@ public class RestApiControllerLote {
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.POST)
 	public ResponseEntity<?> quantidadeProduto(@PathVariable("id") long produtoId) {
 		int quantidade = this.loteService.quantProduto(produtoId);
+		
+		if(quantidade == 0) {
+			return new ResponseEntity<>(new CustomErrorType("Produto não encontrado"), HttpStatus.NOT_FOUND);
+		}
+	
 		return new ResponseEntity<>(quantidade, HttpStatus.OK );
 	}
 	

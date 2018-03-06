@@ -40,8 +40,7 @@ public class LoteServiceImpl implements LoteService {
 	 * Faz o update do lote, lote é recebido como parâmetro já com o novo produto
 	 * como atributo
 	 *
-	 * @param lote
-	 *            lote a ser atualizado
+	 * @param lote - lote a ser atualizado
 	 */
 	@Override
 	public void updateProduto(Lote lote) {

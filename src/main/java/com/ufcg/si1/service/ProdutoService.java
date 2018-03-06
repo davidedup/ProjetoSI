@@ -15,7 +15,7 @@ public interface ProdutoService {
 
 	public Produto findById(long id) throws ObjetoInexistenteException;
 
-	public Produto atualizaProduto(Produto user) throws ObjetoInexistenteException;
+	public Produto atualizaProduto(Produto user, long id) throws ObjetoInexistenteException;
 
 	public void deleteProdutoById(long id);
 

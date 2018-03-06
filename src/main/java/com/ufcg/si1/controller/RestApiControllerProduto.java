@@ -86,8 +86,7 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> criarProduto(@RequestBody Produto produto, UriComponentsBuilder ucBuilder)
-			throws ObjetoJaExistenteException {
+	public ResponseEntity<?> criarProduto(@RequestBody Produto produto) throws ObjetoJaExistenteException {
 		this.produtoService.salvaProduto(produto);
 
 		return new ResponseEntity<>(produto, HttpStatus.CREATED);
@@ -108,7 +107,9 @@ public class RestApiControllerProduto {
 		} catch (ObjetoInexistenteException e) {
 			throw new ObjetoInexistenteException("Não foi possivel atualizar. " + e.getMessage());
 		}
-
+		
+		this.produtoService.atualizaProduto(produto, id);
+		
 		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
 	}
 

@@ -40,9 +40,11 @@ public class ProdutoServiceImpl implements ProdutoService {
 		return produto;
 	}
 
-	public Produto atualizaProduto(Produto produto) throws ObjetoInexistenteException {
-        produto = this.produtosRepository.save(produto);
-        
+	public Produto atualizaProduto(Produto produto, long id) throws ObjetoInexistenteException {
+        this.produtosRepository.delete(id);
+        //TODO: produto quando atualizado muda de id ou não ?? do jeito que ta aqui ele muda
+		produto = this.produtosRepository.save(produto);
+		
         return produto;
 	}
 

@@ -67,7 +67,7 @@ public class Produto {
 	public long getId() {
 		return this.id;
 	}
-
+	
 	public void mudaId(long codigo) {
 		this.id = codigo;
 	}
