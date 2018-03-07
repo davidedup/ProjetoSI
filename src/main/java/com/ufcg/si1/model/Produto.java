@@ -36,6 +36,7 @@ public class Produto {
 	public Produto() {
 		this.id = 0;
 		this.preco = new BigDecimal(0);
+		this.categoria = new Categoria("");
 	}
 
 	public Produto(String nome, String codigoBarra, String fabricante, String nomeCategoria) {
