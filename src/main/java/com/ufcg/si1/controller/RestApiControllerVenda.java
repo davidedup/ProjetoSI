@@ -51,7 +51,7 @@ public class RestApiControllerVenda {
 			return new ResponseEntity<>(new CustomErrorType("Venda com id: " + id + ". Não foi efetuada e não pode ser cancelada"), HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<>("Venda com id: " + id + "apagada", HttpStatus.CREATED);
+		return new ResponseEntity<>("Venda com id: " + id + "apagada", HttpStatus.OK);
 	}
 	
 }
