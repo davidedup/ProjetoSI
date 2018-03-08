@@ -29,7 +29,6 @@ public class Lote {
     }
 
     public Lote(Produto produto, int numeroDeItens, String dataDeValidade) {
-        //super();
         this.produto = produto;
         this.numeroDeItens = numeroDeItens;
         this.dataDeValidade = dataDeValidade;

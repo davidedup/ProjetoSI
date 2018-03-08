@@ -9,7 +9,6 @@ public class LoteDTO {
     }
 
     public LoteDTO(int numeroDeItens, String dataDeValidade) {
-       // super();
         this.numeroDeItens = numeroDeItens;
         this.dataDeValidade = dataDeValidade;
     }
