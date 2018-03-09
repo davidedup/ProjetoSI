@@ -87,6 +87,7 @@ public class LoteServiceImpl implements LoteService {
 			int numeroDeItens = loteDTO.getNumeroDeItens();
 			String validade = loteDTO.getDataDeValidade();
 			loteParaSalvar = new Lote(produtoId, produto, numeroDeItens, validade);
+			produto.mudaDisponibilidade();
 			this.lotesRepository.save(loteParaSalvar);
 		}
 
