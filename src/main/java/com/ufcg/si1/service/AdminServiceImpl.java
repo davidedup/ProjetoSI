@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.ufcg.si1.model.Admin;
 import com.ufcg.si1.repositories.AdminRepository;
 import com.ufcg.si1.util.Token;
+import com.ufcg.si1.util.Util;
 
 import exceptions.ObjetoInvalidoException;
 import exceptions.ObjetoJaExistenteException;
@@ -17,6 +18,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
+	private Util util = new Util();
 	
 	public void cadastrarAdmin(Admin admin) throws ObjetoJaExistenteException {
 		String login = admin.getLogin();
@@ -33,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
         String senha = admin.getSenha();
 
         if (!this.adminRepository.exists(login) ||
-                !this.adminRepository.getUsuarioByLogin(login).getSenha().equals(senha)) {
+                !this.adminRepository.getAdminByLogin(login).getSenha().equals(senha)) {
             throw new ObjetoInvalidoException("Admin ou senha invalidos");
         }
 
@@ -53,5 +56,15 @@ public class AdminServiceImpl implements AdminService {
 
         return token;
     }
+
+	@Override
+	public String pegarNomeAdmin(String autorizacao) {
+		System.out.println("cheguei 1");
+		Admin admin = this.util.getAdmin(autorizacao);
+		System.out.println("cheguei 7");
+		String nomeAdmin = admin.getNome();
+		System.out.println(nomeAdmin);
+		return nomeAdmin;
+	}
 
 }

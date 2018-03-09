@@ -11,5 +11,7 @@ public interface AdminService {
 	void cadastrarAdmin(Admin admin) throws ObjetoJaExistenteException;
 	
 	Token autenticarAdmin(Admin admin) throws ObjetoInvalidoException;
+
+	String pegarNomeAdmin(String autorizacao);
 	
 }

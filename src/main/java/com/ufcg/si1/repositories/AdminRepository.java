@@ -6,6 +6,6 @@ import com.ufcg.si1.model.Admin;
 
 public interface AdminRepository extends CrudRepository<Admin, String>{
 
-	public Admin getUsuarioByLogin(String login);
+	public Admin getAdminByLogin(String login);
 	
 }

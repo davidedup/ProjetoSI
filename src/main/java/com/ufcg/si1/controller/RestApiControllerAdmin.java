@@ -3,6 +3,7 @@ package com.ufcg.si1.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +33,12 @@ public class RestApiControllerAdmin {
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
 	public void cadastrar(@RequestBody Admin admin) throws ObjetoJaExistenteException {
 		this.adminService.cadastrarAdmin(admin);
+	}
+	
+	@RequestMapping(value = "/nome-admin", method = RequestMethod.GET)
+	public String pegarNomeAdmin(@RequestHeader("Authorization") String autorizacao) {
+		System.out.println(autorizacao);
+		return this.adminService.pegarNomeAdmin(autorizacao);
 	}
 
 }
