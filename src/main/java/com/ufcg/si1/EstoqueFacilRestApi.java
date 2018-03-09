@@ -38,7 +38,7 @@ public class EstoqueFacilRestApi {
 							produtos.add(produto1);
 							Produto produto2 = new Produto("produto2", "234", "fabricante2", "categoria2");
 							produtos.add(produto2);
-							Produto produto3 = new Produto("produto3", "345", "fabricante3", "categoria3");
+							Produto produto3 = new Produto("produto3", "345 ", "fabricante3", "categoria1");
 							produtos.add(produto3);
 
 							for (Produto produto: produtos) {

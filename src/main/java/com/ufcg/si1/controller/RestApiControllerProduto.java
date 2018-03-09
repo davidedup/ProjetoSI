@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.service.ProdutoService;
@@ -45,7 +44,7 @@ public class RestApiControllerProduto {
 		if (produtos.isEmpty()) {
 			return new ResponseEntity(new CustomErrorType("Não existe produtos cadastrados"), HttpStatus.NO_CONTENT);
 		}
-
+		
 		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
 	}
 

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ufcg.si1.stategydescontos.Desconto;
 
 @Entity
@@ -30,7 +32,9 @@ public class Produto {
 	@Column(name = "situacao")
 	private boolean disponivel;
 
-	@Transient
+	@Autowired
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_produto")
 	private Categoria categoria;
 	
 	public Produto() {

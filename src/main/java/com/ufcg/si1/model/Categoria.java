@@ -27,11 +27,12 @@ public class Categoria implements Comparable<Categoria> {
 	private Desconto desconto;
 	
 	public Categoria() {
+		this.nome = "";
 		this.desconto = new SemDesconto();
 	}
 	
-	public Categoria(String categoria) {
-		this.nome = categoria;
+	public Categoria(String nome) {
+		this.nome = nome;
 		this.desconto = new SemDesconto();
 	}
 
