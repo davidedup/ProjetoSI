@@ -30,6 +30,10 @@ public class VendaItem {
 	@Column(name = "numero_de_itens")
 	private int quantidade;
 
+	public VendaItem() {
+		
+	}
+	
 	public VendaItem(Produto produto, int quantidade) {
 		this.produto = produto;
 		this.quantidade = quantidade;
