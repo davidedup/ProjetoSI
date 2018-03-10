@@ -132,7 +132,7 @@ public class RestApiControllerProduto {
         BigDecimal precoDoProduto = produtoRequerido.getPreco();
         ObjWrapper<?> precoWrapper = new ObjWrapper<>(precoDoProduto);
 
-		return new ResponseEntity<?>(precoWrapper, HttpStatus.OK);
+		return new ResponseEntity<>(precoWrapper, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/disponibilidade/{id}", method = RequestMethod.GET)
