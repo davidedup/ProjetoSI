@@ -1,6 +1,7 @@
 package com.ufcg.si1.service;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.ufcg.si1.repositories.ProdutosRepository;
@@ -120,6 +121,19 @@ public class ProdutoServiceImpl implements ProdutoService {
 		}
 		
 		return desconto;
+	}
+
+	@Override
+	public List<String> listaCategorias() {
+		List<Produto> produtos =  this.findAllProdutos();
+		List<String> categoriaNomes = new LinkedList<String>();
+		
+		for (Produto produto : produtos) {
+			String nomeDaCategoria = produto.getCategoria().getNome();
+			categoriaNomes.add(nomeDaCategoria);
+		}
+		
+		return categoriaNomes;
 	}
 	
 }

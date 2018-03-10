@@ -151,12 +151,17 @@ public class RestApiControllerProduto {
 		return new ResponseEntity<>(quantProdutos, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/categoria/{categoria}/desconto/{desconto}", method = RequestMethod.GET)
+	@RequestMapping(value = "/categoria/{categoria}/desconto/{desconto}", method = RequestMethod.POST)
 	public ResponseEntity<?> atribuiDescontoACategoria(@PathVariable("categoria") String nomeDaCategoria, @PathVariable("desconto") String nomeDoDesconto) {
 		this.produtoService.atribuiDescontoACategoria(nomeDaCategoria, nomeDoDesconto);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/lista-categoria", method = RequestMethod.GET)
+	public ResponseEntity<?> listaCategorias() {
+		List<String> categorias = this.produtoService.listaCategorias();
+		return new ResponseEntity<>(categorias, HttpStatus.OK);
+	}
 	
 
 }

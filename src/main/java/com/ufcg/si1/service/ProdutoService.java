@@ -26,4 +26,6 @@ public interface ProdutoService {
 	public int quantProduto();
 
 	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto);
+
+	public List<String> listaCategorias();
 }
