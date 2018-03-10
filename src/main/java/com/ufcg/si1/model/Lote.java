@@ -2,6 +2,10 @@ package com.ufcg.si1.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,7 +26,7 @@ public class Lote {
     private int numeroDeItens;
 
     @Column(name = "data_de_validade")
-    private String dataDeValidade;
+	private Date dataDeValidade;
 
     public Lote() {
         this.id = 0;
@@ -31,10 +35,14 @@ public class Lote {
     public Lote(Produto produto, int numeroDeItens, String dataDeValidade) {
         this.produto = produto;
         this.numeroDeItens = numeroDeItens;
-        this.dataDeValidade = dataDeValidade;
+        try {
+			this.dataDeValidade = new SimpleDateFormat("dd/MM/yyyy").parse(dataDeValidade);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
     }
 
-    public Lote(long id, Produto produto, int numeroDeItens, String dataDeValidade) {
+    public Lote(long id, Produto produto, int numeroDeItens, Date dataDeValidade) {
         this.id = id;
         this.produto = produto;
         this.numeroDeItens = numeroDeItens;
@@ -65,11 +73,11 @@ public class Lote {
         this.numeroDeItens = numeroDeItens;
     }
 
-    public String getDataDeValidade() {
+    public Date getDataDeValidade() {
         return this.dataDeValidade;
     }
 
-    public void setDataDeValidade(String dataDeValidade) {
+    public void setDataDeValidade(Date dataDeValidade) {
         this.dataDeValidade = dataDeValidade;
     }
 

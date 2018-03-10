@@ -1,5 +1,6 @@
 package com.ufcg.si1.service;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,9 +86,9 @@ public class LoteServiceImpl implements LoteService {
 
 		if (produto != null) {
 			int numeroDeItens = loteDTO.getNumeroDeItens();
-			String validade = loteDTO.getDataDeValidade();
+			Date validade = loteDTO.getDataDeValidade();
 			loteParaSalvar = new Lote(produtoId, produto, numeroDeItens, validade);
-			produto.mudaDisponibilidade();
+			produto.setDisponibilidade(true);
 			this.lotesRepository.save(loteParaSalvar);
 		}
 
@@ -132,13 +133,14 @@ public class LoteServiceImpl implements LoteService {
 		return this.findAllLotes().size();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<String> getValidades() {
 		List<String> validade = new LinkedList<String>();
 		List<Lote> lotes = this.findAllLotes();
 
 		for (Lote lote : lotes) {
-			validade.add(lote.getDataDeValidade());
+			validade.add(lote.getDataDeValidade().toGMTString());
 		}
 
 		return validade;

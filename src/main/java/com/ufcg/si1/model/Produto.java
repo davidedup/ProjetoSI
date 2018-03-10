@@ -100,10 +100,6 @@ public class Produto {
 		this.codigoBarra = codigoBarra;
 	}
 
-	public void mudaDisponibilidade() {
-		this.disponivel = !this.disponivel;
-	}
-
 	public boolean getDisponibilidade() {
 		return this.disponivel;
 	}
