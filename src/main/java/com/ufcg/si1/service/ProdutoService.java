@@ -24,4 +24,6 @@ public interface ProdutoService {
 	public boolean produtoExiste(Produto produto);
 
 	public int quantProduto();
+
+	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto);
 }

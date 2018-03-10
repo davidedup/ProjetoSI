@@ -41,6 +41,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Produto>> listarProdutos() {
 		List<Produto> produtos = produtoService.findAllProdutos();
+		System.out.println(produtos.get(0).getCategoria().getDesconto().toString());
 
 		if (produtos.isEmpty()) {
 			return new ResponseEntity(new CustomErrorType("Não existe produtos cadastrados"), HttpStatus.NO_CONTENT);
@@ -149,5 +150,13 @@ public class RestApiControllerProduto {
 		int quantProdutos = this.produtoService.quantProduto();
 		return new ResponseEntity<>(quantProdutos, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/categoria/{categoria}/desconto/{desconto}", method = RequestMethod.GET)
+	public ResponseEntity<?> atribuiDescontoACategoria(@PathVariable("categoria") String nomeDaCategoria, @PathVariable("desconto") String nomeDoDesconto) {
+		this.produtoService.atribuiDescontoACategoria(nomeDaCategoria, nomeDoDesconto);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
 
 }

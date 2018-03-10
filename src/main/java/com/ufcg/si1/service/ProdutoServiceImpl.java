@@ -4,6 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.ufcg.si1.repositories.ProdutosRepository;
+import com.ufcg.si1.stategydescontos.BomDesconto;
+import com.ufcg.si1.stategydescontos.Desconto;
+import com.ufcg.si1.stategydescontos.OtimoDesconto;
+import com.ufcg.si1.stategydescontos.SemDesconto;
+import com.ufcg.si1.stategydescontos.SuperDesconto;
 import com.ufcg.si1.util.Util;
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
@@ -85,7 +90,36 @@ public class ProdutoServiceImpl implements ProdutoService {
 		int quantProdutos =  this.findAllProdutos().size();
 		return quantProdutos;
 	}
+
+
+	@Override
+	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto) {
+		List<Produto> produtos =  this.findAllProdutos();
+		Desconto desconto = this.escolheDescontoPeloNome(nomeDoDesconto);
+		
+		for (Produto produto : produtos) {
+			if(produto.getCategoria().getNome().equals(nomeDaCategoria)) {
+				produto.getCategoria().setDesconto(desconto);
+				this.produtosRepository.save(produto);
+			}
+		}
+
+	}
 	
-	
+	private Desconto escolheDescontoPeloNome(String nomeDoDesconto) {
+		Desconto desconto = null;
+		
+		if(nomeDoDesconto.equalsIgnoreCase("sem desconto")) {
+			desconto = new SemDesconto();
+		} else if(nomeDoDesconto.equalsIgnoreCase("bom desconto")) {
+			desconto = new BomDesconto();
+		} else if (nomeDoDesconto.equalsIgnoreCase("otimo desconto")) {
+			desconto = new OtimoDesconto();
+		}else {
+			desconto =  new SuperDesconto();
+		}
+		
+		return desconto;
+	}
 	
 }
