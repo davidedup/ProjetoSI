@@ -27,6 +27,7 @@ import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.service.ProdutoService;
 import com.ufcg.si1.service.ProdutoServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
+import com.ufcg.si1.util.ObjWrapper;
 
 @RestController
 @RequestMapping("/produto")
@@ -134,11 +135,12 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(value = "/disponibilidade/{id}", method = RequestMethod.GET)
-	public boolean consultaDisponibilidade(@PathVariable("id") long id) throws ObjetoInexistenteException {
+	public ResponseEntity<?> consultaDisponibilidade(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
 		boolean disponibilidade = produtoRequerido.getDisponibilidade();
+        ObjWrapper<?> disponibilidadeWrapper = new ObjWrapper<>(disponibilidade);
 
-		return disponibilidade;
+		return new ResponseEntity<>(disponibilidadeWrapper, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/quantidade", method = RequestMethod.GET)
