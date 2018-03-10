@@ -29,12 +29,8 @@ public class RestApiControllerVenda {
 	private VendaService vendaService =  new VendaServiceImpl();
 	
 	@RequestMapping(value = "/compra/{data}", method = RequestMethod.POST)
-	public ResponseEntity<?> cadastraVenda(@RequestBody List<VendaItem> produtosVendidos,@PathVariable("data") String dataDaVenda ){
-		
-		this.vendaService.cadastraVenda(produtosVendidos, dataDaVenda);
-		
-		System.out.println("44444");
-		
+	public ResponseEntity<?> cadastraVenda(@RequestBody List<VendaItem> produtosVendidos, @PathVariable("data") String dataDaVenda ){
+		this.vendaService.cadastraVenda(produtosVendidos, dataDaVenda);		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

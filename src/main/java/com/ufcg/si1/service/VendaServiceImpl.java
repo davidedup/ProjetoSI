@@ -23,15 +23,8 @@ public class VendaServiceImpl implements VendaService {
 	@Override
 	public Venda cadastraVenda(List<VendaItem> produtosVendidos, String dataDaVenda) {
 		Venda vendaParaSalva = new Venda(produtosVendidos, dataDaVenda);
-		
 		this.loteService.atualizaQuantProduto(produtosVendidos);
-		
-		System.out.println("BBBBB");
-		
-		System.out.println(vendaParaSalva);
-		
-		return vendasRepository.save(vendaParaSalva);
-		
+		return vendasRepository.save(vendaParaSalva);	
 	}
 
 	@Override

@@ -81,6 +81,7 @@ public class LoteServiceImpl implements LoteService {
 	@Override
 	public Lote criarLote(long produtoId, LoteDTO loteDTO) {
 		Lote loteParaSalvar = null;
+		Lote loteSalvo = null;
 		Produto produto = this.produtosRepository.findOne(produtoId);
 
 		if (produto != null) {
@@ -88,10 +89,9 @@ public class LoteServiceImpl implements LoteService {
 			String validade = loteDTO.getDataDeValidade();
 			loteParaSalvar = new Lote(produtoId, produto, numeroDeItens, validade);
 			produto.setDisponibilidade(true);
-			this.lotesRepository.save(loteParaSalvar);
+			loteSalvo = this.lotesRepository.save(loteParaSalvar);
 		}
-
-		return loteParaSalvar;
+		return loteSalvo;
 	}
 
 	// TODO: excluir do mais perto de vencer e vender de varios lotes, caso um nao

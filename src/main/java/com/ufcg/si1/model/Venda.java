@@ -3,6 +3,7 @@ package com.ufcg.si1.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Venda {
 	private long id;
 
 	@Autowired
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(name = "tb_produtos_vendidos")
 	private List<VendaItem> produtosVendidos;
 
