@@ -130,7 +130,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 		
 		for (Produto produto : produtos) {
 			String nomeDaCategoria = produto.getCategoria().getNome();
-			categoriaNomes.add(nomeDaCategoria);
+			if(!categoriaNomes.contains(nomeDaCategoria))
+				categoriaNomes.add(nomeDaCategoria);
 		}
 		
 		return categoriaNomes;
