@@ -127,11 +127,12 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(value = "/preco/{id}", method = RequestMethod.GET)
-	public ResponseEntity<BigDecimal> consultaPreco(@PathVariable("id") long id) throws ObjetoInexistenteException {
+	public ResponseEntity<?> consultaPreco(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
-		BigDecimal precoDoProduto = produtoRequerido.getPreco();
+        BigDecimal precoDoProduto = produtoRequerido.getPreco();
+        ObjWrapper<?> precoWrapper = new ObjWrapper<>(precoDoProduto);
 
-		return new ResponseEntity<BigDecimal>(precoDoProduto, HttpStatus.OK);
+		return new ResponseEntity<?>(precoWrapper, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/disponibilidade/{id}", method = RequestMethod.GET)
