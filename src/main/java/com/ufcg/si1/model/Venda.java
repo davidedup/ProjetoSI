@@ -1,9 +1,6 @@
 package com.ufcg.si1.model;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -32,13 +29,13 @@ public class Venda {
 	private List<VendaItem> produtosVendidos;
 
 	@Column(name = "data_da_venda")
-	private Date dataDaVenda; // TODO: mudar para date
+	private String dataDaVenda;
 
 	public Venda() {
 
 	}
 
-	public Venda(List<VendaItem> produtosVendidos, Date dataDaVenda) {
+	public Venda(List<VendaItem> produtosVendidos, String dataDaVenda) {
 		this.produtosVendidos = produtosVendidos;
 		this.dataDaVenda = dataDaVenda;
 		
@@ -74,16 +71,12 @@ public class Venda {
 		this.produtosVendidos = produtosVendidos;
 	}
 
-	public Date getDataDaVenda() {
+	public String getDataDaVenda() {
 		return dataDaVenda;
 	}
 
-	public void setDataDaVenda(Date dataDaVenda) {
+	public void setDataDaVenda(String dataDaVenda) {
 		this.dataDaVenda = dataDaVenda;
 	}
 
-	@Override
-	public String toString() {
-		return "Venda [id=" + id + ", produtosVendidos=" + produtosVendidos.toString() + ", dataDaVenda=" + dataDaVenda + "]";
-	}
 }

@@ -8,12 +8,12 @@ import com.ufcg.si1.model.VendaItem;
 
 public interface VendaService {
 	
-	public Venda cadastraVenda(List<VendaItem> produtosVendidos);
+	public Venda cadastraVenda(List<VendaItem> produtosVendidos, String dataDaVenda);
 	
-	public List<Venda> findAllLotes();
-
 	public BigDecimal calculaTotalDeVendas();
 
 	public Venda cancelaVenda(long id);
+
+	List<Venda> findAllVendas();
 
 }

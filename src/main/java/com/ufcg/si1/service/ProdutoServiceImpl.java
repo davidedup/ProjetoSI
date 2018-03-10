@@ -30,7 +30,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 		String nome = produto.getNome();
 		String fabricante = produto.getFabricante();
 
-		if (this.doesProdutoExist(produto)) {
+		if (this.produtoExiste(produto)) {
 			throw new ObjetoJaExistenteException("O produto " + nome +
 					" do fabricante " + fabricante + " ja esta cadastrado!");
 		}
@@ -72,8 +72,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	
-	//TODO: mudar para portugues
-	public boolean doesProdutoExist(Produto produto) {
+	public boolean produtoExiste(Produto produto) {
 		long id = produto.getId();
 		boolean produtoExiste = this.produtosRepository.exists(id);
 		

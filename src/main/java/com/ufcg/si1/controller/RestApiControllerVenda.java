@@ -1,13 +1,13 @@
 package com.ufcg.si1.controller;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,11 +28,10 @@ public class RestApiControllerVenda {
 	@Autowired
 	private VendaService vendaService =  new VendaServiceImpl();
 	
-	@RequestMapping(value = "/compra", method = RequestMethod.POST)
-	public ResponseEntity<?> cadastraVenda(@RequestBody List<VendaItem> produtosVendidos){
+	@RequestMapping(value = "/compra/{data}", method = RequestMethod.POST)
+	public ResponseEntity<?> cadastraVenda(@RequestBody List<VendaItem> produtosVendidos,@PathVariable("data") String dataDaVenda ){
 		
-		
-		this.vendaService.cadastraVenda(produtosVendidos);
+		this.vendaService.cadastraVenda(produtosVendidos, dataDaVenda);
 		
 		System.out.println("44444");
 		
@@ -41,14 +40,14 @@ public class RestApiControllerVenda {
 	
 	@RequestMapping(value = "/vendas", method = RequestMethod.GET)
 	public ResponseEntity<List<Venda>> listarVendas(){
-		List<Venda> vendas = this.vendaService.findAllLotes();		
-		return new ResponseEntity<List<Venda>>(vendas, HttpStatus.CREATED);
+		List<Venda> vendas = this.vendaService.findAllVendas();		
+		return new ResponseEntity<List<Venda>>(vendas, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/caixa", method = RequestMethod.GET)
 	public ResponseEntity<BigDecimal> calculaTotalDeVendas(){
 		BigDecimal caixa = this.vendaService.calculaTotalDeVendas();
-		return new ResponseEntity<BigDecimal>(caixa, HttpStatus.CREATED);
+		return new ResponseEntity<BigDecimal>(caixa, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/cancela", method = RequestMethod.POST)

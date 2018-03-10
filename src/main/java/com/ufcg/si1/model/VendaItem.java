@@ -58,10 +58,5 @@ public class VendaItem {
 	public BigDecimal getPreco() {
 		return this.produto.getPreco();
 	}
-
-	@Override
-	public String toString() {
-		return "VendaItem [id=" + id + ", produto=" + produto + ", quantidade=" + quantidade + "]";
-	}
-
+	
 }

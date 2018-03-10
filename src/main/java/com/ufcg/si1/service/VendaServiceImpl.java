@@ -10,7 +10,6 @@ import com.ufcg.si1.model.VendaItem;
 import com.ufcg.si1.repositories.VendasRepository;
 import com.ufcg.si1.util.Util;
 
-import java.util.Date;
 import java.util.List;
 
 @Service("vendaService")
@@ -22,9 +21,7 @@ public class VendaServiceImpl implements VendaService {
 	private LoteService loteService;
 
 	@Override
-	public Venda cadastraVenda(List<VendaItem> produtosVendidos) {
-		Date dataDaVenda = new Date();
-		dataDaVenda.setTime(dataDaVenda.getTime());
+	public Venda cadastraVenda(List<VendaItem> produtosVendidos, String dataDaVenda) {
 		Venda vendaParaSalva = new Venda(produtosVendidos, dataDaVenda);
 		
 		this.loteService.atualizaQuantProduto(produtosVendidos);
@@ -38,7 +35,7 @@ public class VendaServiceImpl implements VendaService {
 	}
 
 	@Override
-	public List<Venda> findAllLotes() {
+	public List<Venda> findAllVendas() {
 		Iterable<Venda> vendas = vendasRepository.findAll();
 		List<Venda> vendasLista = Util.toList(vendas);
 		return vendasLista;
@@ -47,7 +44,7 @@ public class VendaServiceImpl implements VendaService {
 	@Override
 	public BigDecimal calculaTotalDeVendas() {
 		BigDecimal totalDasVendas = new BigDecimal(0.0);
-		List<Venda> vendas = this.findAllLotes();
+		List<Venda> vendas = this.findAllVendas();
 
 		for (Venda venda : vendas) {
 			totalDasVendas = venda.calculaTotal().add(totalDasVendas);

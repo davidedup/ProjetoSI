@@ -21,7 +21,7 @@ public interface ProdutoService {
 
 	public Iterator<Produto> getIterator();
 
-	public boolean doesProdutoExist(Produto produto);
+	public boolean produtoExiste(Produto produto);
 
 	public int quantProduto();
 }
