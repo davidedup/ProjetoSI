@@ -1,24 +1,16 @@
 package com.ufcg.si1.model.DTO;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class LoteDTO {
 
     private int numeroDeItens;
-    private Date dataDeValidade;
+    private String dataDeValidade;
 
     public LoteDTO() {
     }
 
     public LoteDTO(int numeroDeItens, String dataDeValidade) {
         this.numeroDeItens = numeroDeItens;
-        try {
-			this.dataDeValidade = new SimpleDateFormat("dd/MM/yyyy").parse(dataDeValidade);
-		} catch (ParseException e) {
-			
-		}
+        this.dataDeValidade = dataDeValidade;
     }
 
     public int getNumeroDeItens() {
@@ -29,11 +21,11 @@ public class LoteDTO {
         this.numeroDeItens = numeroDeItens;
     }
 
-    public Date getDataDeValidade() {
+    public String getDataDeValidade() {
         return this.dataDeValidade;
     }
 
-    public void setDataDeValidade(Date dataDeValidade) {
+    public void setDataDeValidade(String dataDeValidade) {
         this.dataDeValidade = dataDeValidade;
     }
 

@@ -59,4 +59,9 @@ public class VendaItem {
 		return this.produto.getPreco();
 	}
 
+	@Override
+	public String toString() {
+		return "VendaItem [id=" + id + ", produto=" + produto + ", quantidade=" + quantidade + "]";
+	}
+
 }

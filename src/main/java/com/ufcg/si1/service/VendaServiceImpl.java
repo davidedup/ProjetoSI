@@ -3,24 +3,35 @@ package com.ufcg.si1.service;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ufcg.si1.model.Venda;
 import com.ufcg.si1.model.VendaItem;
 import com.ufcg.si1.repositories.VendasRepository;
 import com.ufcg.si1.util.Util;
+
+import java.util.Date;
 import java.util.List;
 
+@Service("vendaService")
 public class VendaServiceImpl implements VendaService {
 
 	@Autowired
 	private VendasRepository vendasRepository;
+	@Autowired
 	private LoteService loteService;
 
 	@Override
-	public Venda cadastraVenda(List<VendaItem> produtosVendidos, String dataDaVenda) {
+	public Venda cadastraVenda(List<VendaItem> produtosVendidos) {
+		Date dataDaVenda = new Date();
+		dataDaVenda.setTime(dataDaVenda.getTime());
 		Venda vendaParaSalva = new Venda(produtosVendidos, dataDaVenda);
 		
 		this.loteService.atualizaQuantProduto(produtosVendidos);
+		
+		System.out.println("BBBBB");
+		
+		System.out.println(vendaParaSalva);
 		
 		return vendasRepository.save(vendaParaSalva);
 		

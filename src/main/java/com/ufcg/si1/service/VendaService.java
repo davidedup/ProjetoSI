@@ -8,7 +8,7 @@ import com.ufcg.si1.model.VendaItem;
 
 public interface VendaService {
 	
-	public Venda cadastraVenda(List<VendaItem> produtosVendidos, String dataDaVenda);
+	public Venda cadastraVenda(List<VendaItem> produtosVendidos);
 	
 	public List<Venda> findAllLotes();
 

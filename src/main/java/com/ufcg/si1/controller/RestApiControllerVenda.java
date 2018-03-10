@@ -1,8 +1,10 @@
 package com.ufcg.si1.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,11 +25,17 @@ import com.ufcg.si1.util.CustomErrorType;
 @CrossOrigin
 public class RestApiControllerVenda {
 	
+	@Autowired
 	private VendaService vendaService =  new VendaServiceImpl();
 	
 	@RequestMapping(value = "/compra", method = RequestMethod.POST)
-	public ResponseEntity<?> cadastraVenda(@RequestBody List<VendaItem> produtosVendidos, String dataDaCompra){
-		this.vendaService.cadastraVenda(produtosVendidos, dataDaCompra);
+	public ResponseEntity<?> cadastraVenda(@RequestBody List<VendaItem> produtosVendidos){
+		
+		
+		this.vendaService.cadastraVenda(produtosVendidos);
+		
+		System.out.println("44444");
+		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
