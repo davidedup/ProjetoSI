@@ -113,6 +113,7 @@ public class LoteServiceImpl implements LoteService {
 		}
 	}
 
+	// retorna q quantidade de produtos em todos os lote 
 	@Override
 	public int quantProduto(long produtoId) {
 		List<Lote> lotes = this.findAllLotes();
@@ -178,6 +179,33 @@ public class LoteServiceImpl implements LoteService {
 		
 		return produtosComBaixaQaunt;
 
+	}
+
+	@Override
+	public List<Produto> listaProximoDeVencer() {
+		List<Produto> produtosProximoDeVencer = new LinkedList<>();
+		List<Produto> produtos = Util.toList(this.produtosRepository.findAll());
+		
+		for (Produto produto : produtos) {
+			boolean produtoProximoDeVencer = this.temLoteProximoDeVencer(produto);
+			
+			if(produtoProximoDeVencer) {
+				produtosProximoDeVencer.add(produto);
+			}
+			
+		}
+		
+		return produtosProximoDeVencer;
+	}
+
+	private boolean temLoteProximoDeVencer(Produto produto) {
+		List<Lote> lotes = this.findAllLotes();
+		for (Lote lote : lotes) {
+			if(lote.getProduto().equals(produto) && lote.pertoDeVencer()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

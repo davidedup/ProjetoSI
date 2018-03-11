@@ -76,11 +76,15 @@ public class RestApiControllerLote {
 	
 	@RequestMapping(value = "/lista-produtos-baixa-quant", method = RequestMethod.GET)
 	public ResponseEntity<?> listaProdutosBaixaQaunt() {
-		List<Produto> categorias = this.loteService.listaProdutosBaixaQaunt();
-		ObjWrapper<List<Produto>> categoriasWrapped = new ObjWrapper<>(categorias);
-		return new ResponseEntity<>(categoriasWrapped, HttpStatus.OK);
+		List<Produto> produtosPoucaQuant = this.loteService.listaProdutosBaixaQaunt();
+		return new ResponseEntity<>(produtosPoucaQuant, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/lista-perto-vencer", method = RequestMethod.GET)
+	public ResponseEntity<?> listaProximoDeVencer() {
+		List<Produto> produtosProximoDaValidade = this.loteService.listaProximoDeVencer();
+		return new ResponseEntity<>(produtosProximoDaValidade , HttpStatus.OK);
+	}
 	
 	
 }
