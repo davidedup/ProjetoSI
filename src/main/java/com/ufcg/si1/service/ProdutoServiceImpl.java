@@ -5,17 +5,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.ufcg.si1.repositories.ProdutosRepository;
-import com.ufcg.si1.stategydescontos.BomDesconto;
-import com.ufcg.si1.stategydescontos.Desconto;
-import com.ufcg.si1.stategydescontos.OtimoDesconto;
-import com.ufcg.si1.stategydescontos.SemDesconto;
-import com.ufcg.si1.stategydescontos.SuperDesconto;
 import com.ufcg.si1.util.Util;
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufcg.si1.desconto.BomDesconto;
+import com.ufcg.si1.desconto.Desconto;
+import com.ufcg.si1.desconto.DescontoFactory;
+import com.ufcg.si1.desconto.OtimoDesconto;
+import com.ufcg.si1.desconto.SemDesconto;
+import com.ufcg.si1.desconto.SuperDesconto;
 import com.ufcg.si1.model.Produto;
 
 @Service("produtoService")
@@ -23,6 +24,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	@Autowired
 	private ProdutosRepository produtosRepository;
+	private DescontoFactory fabricaDeDescontos = new DescontoFactory();
 
 	public List<Produto> findAllProdutos() {
 		Iterable<Produto> produtos = this.produtosRepository.findAll();
@@ -96,7 +98,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto) {
 		List<Produto> produtos =  this.findAllProdutos();
-		Desconto desconto = this.escolheDescontoPeloNome(nomeDoDesconto);
+		Desconto desconto = this.fabricaDeDescontos.criaDesconto(nomeDoDesconto);
 		
 		for (Produto produto : produtos) {
 			if(produto.getCategoria().getNome().equals(nomeDaCategoria)) {
@@ -105,22 +107,6 @@ public class ProdutoServiceImpl implements ProdutoService {
 			}
 		}
 
-	}
-	
-	private Desconto escolheDescontoPeloNome(String nomeDoDesconto) {
-		Desconto desconto = null;
-		
-		if(nomeDoDesconto.equalsIgnoreCase("sem desconto")) {
-			desconto = new SemDesconto();
-		} else if(nomeDoDesconto.equalsIgnoreCase("bom desconto")) {
-			desconto = new BomDesconto();
-		} else if (nomeDoDesconto.equalsIgnoreCase("otimo desconto")) {
-			desconto = new OtimoDesconto();
-		}else {
-			desconto =  new SuperDesconto();
-		}
-		
-		return desconto;
 	}
 
 	@Override

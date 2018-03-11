@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ufcg.si1.stategydescontos.Desconto;
+import com.ufcg.si1.desconto.Desconto;
 
 @Entity
 @Table(name = "tb_produto")

@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.ufcg.si1.stategydescontos.Desconto;
-import com.ufcg.si1.stategydescontos.SemDesconto;
+import com.ufcg.si1.desconto.Desconto;
+import com.ufcg.si1.desconto.SemDesconto;
 
 @Entity
 @Table(name = "tb_categoria")

@@ -1,4 +1,4 @@
-package com.ufcg.si1.stategydescontos;
+package com.ufcg.si1.desconto;
 
 import java.math.BigDecimal;
 
