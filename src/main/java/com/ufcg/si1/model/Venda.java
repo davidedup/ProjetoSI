@@ -42,15 +42,15 @@ public class Venda {
 		
 	}
 
-	// TODO: calcular com Desconto, por enqaunto desconto ta em produto
 	public BigDecimal calculaTotal() {
 		BigDecimal totalDaVenda = new BigDecimal(0.0);
 
 		for (VendaItem vendaItem : this.produtosVendidos) {
+			Produto produto = vendaItem.getProduto();
 			int quantidadeDeProdutos = vendaItem.getQuantidade();
-			BigDecimal preco = vendaItem.getPreco();
-			BigDecimal aux = new BigDecimal(quantidadeDeProdutos);
-			totalDaVenda = preco.multiply(aux).add(totalDaVenda);
+			BigDecimal precoComDesconto = produto.precoComDesconto();
+			BigDecimal intParaBigDecimal = new BigDecimal(quantidadeDeProdutos);
+			totalDaVenda = precoComDesconto.multiply(intParaBigDecimal).add(totalDaVenda);
 		}
 
 		return totalDaVenda;
