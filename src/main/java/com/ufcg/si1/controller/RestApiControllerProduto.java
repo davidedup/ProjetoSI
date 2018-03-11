@@ -160,7 +160,8 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/lista-categoria", method = RequestMethod.GET)
 	public ResponseEntity<?> listaCategorias() {
 		List<String> categorias = this.produtoService.listaCategorias();
-		return new ResponseEntity<>(categorias, HttpStatus.OK);
+		ObjWrapper<List<String>> categoriasWrapped = new ObjWrapper<>(categorias);
+		return new ResponseEntity<>(categoriasWrapped, HttpStatus.OK);
 	}
 	
 
