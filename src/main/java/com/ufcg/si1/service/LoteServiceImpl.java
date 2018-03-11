@@ -12,7 +12,6 @@ import com.ufcg.si1.repositories.LotesRepository;
 import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.util.Util;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,8 @@ public class LoteServiceImpl implements LoteService {
 	 * Faz o update do lote, lote é recebido como parâmetro já com o novo produto
 	 * como atributo
 	 *
-	 * @param lote - lote a ser atualizado
+	 * @param lote
+	 *            - lote a ser atualizado
 	 */
 	@Override
 	public void updateProduto(Lote lote) {
@@ -144,11 +144,10 @@ public class LoteServiceImpl implements LoteService {
 		return validade;
 	}
 
-	//TODO: esse metodo ficou ducplicado .. colocar um boolean para decidir se adc ou diminui ??
 	@Override
 	public void incrementaQuantProdutos(List<VendaItem> produtosVendidos) {
 		List<Lote> lotes = this.findAllLotes();
-		
+
 		for (VendaItem vendaItem : produtosVendidos) {
 			Produto produto = vendaItem.getProduto();
 			int quantidade = vendaItem.getQuantidade();
@@ -160,7 +159,25 @@ public class LoteServiceImpl implements LoteService {
 			}
 
 		}
-		
+
 	}
 
+	@Override
+	public List<Produto> listaProdutosBaixaQaunt() {
+		List<Produto> produtosComBaixaQaunt = new LinkedList<>();
+		List<Produto> produtos = Util.toList(this.produtosRepository.findAll());
+
+		for (Produto produto : produtos) {
+			int quantidadeProduto = this.quantProduto(produto.getId());
+			
+			if(quantidadeProduto <= 15) {
+				produtosComBaixaQaunt.add(produto);
+			}
+		
+		}
+		
+		return produtosComBaixaQaunt;
+
+	}
+	
 }

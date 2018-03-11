@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.si1.model.Lote;
+import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.model.DTO.LoteDTO;
 import com.ufcg.si1.service.LoteService;
 import com.ufcg.si1.service.LoteServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
+import com.ufcg.si1.util.ObjWrapper;
 
 @RestController
 @RequestMapping("/lote")
@@ -71,5 +73,14 @@ public class RestApiControllerLote {
 		List<String> validades = this.loteService.getValidades();
 		return new ResponseEntity<>(validades, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/lista-produtos-baixa-quant", method = RequestMethod.GET)
+	public ResponseEntity<?> listaProdutosBaixaQaunt() {
+		List<Produto> categorias = this.loteService.listaProdutosBaixaQaunt();
+		ObjWrapper<List<Produto>> categoriasWrapped = new ObjWrapper<>(categorias);
+		return new ResponseEntity<>(categoriasWrapped, HttpStatus.OK);
+	}
+	
+	
 	
 }

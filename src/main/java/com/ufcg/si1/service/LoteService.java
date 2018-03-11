@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.ufcg.si1.model.Lote;
+import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.model.VendaItem;
 import com.ufcg.si1.model.DTO.LoteDTO;
 
@@ -34,6 +35,8 @@ public interface LoteService {
 	public List<String> getValidades();
 
 	public void incrementaQuantProdutos(List<VendaItem> produtosVendidos);
+
+	public List<Produto> listaProdutosBaixaQaunt();
 
 
 

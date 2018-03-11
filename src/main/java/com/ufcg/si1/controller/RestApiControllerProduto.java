@@ -164,5 +164,4 @@ public class RestApiControllerProduto {
 		return new ResponseEntity<>(categoriasWrapped, HttpStatus.OK);
 	}
 	
-
 }
