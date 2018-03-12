@@ -91,6 +91,7 @@ public class LoteServiceImpl implements LoteService {
 			produto.setDisponibilidade(true);
 			loteSalvo = this.lotesRepository.save(loteParaSalvar);
 		}
+		
 		return loteSalvo;
 	}
 
@@ -105,24 +106,30 @@ public class LoteServiceImpl implements LoteService {
 			int quantidade = vendaItem.getQuantidade();
 
 			for (Lote lote : lotes) {
+				
 				if (lote.getProduto().equals(produto)) {
 					lote.setNumeroDeItens(lote.getNumeroDeItens() - quantidade);
 				}
+				
 			}
 
 		}
 	}
+	
+	
 
-	// retorna q quantidade de produtos em todos os lote 
+	// retorna a quantidade de produtos em todos os lote 
 	@Override
 	public int quantProduto(long produtoId) {
 		List<Lote> lotes = this.findAllLotes();
 		int quantidade = 0;
 
 		for (Lote lote : lotes) {
+			
 			if (lote.getProduto().getId() == produtoId) {
 				quantidade += lote.getNumeroDeItens();
 			}
+			
 		}
 
 		return quantidade;
@@ -154,9 +161,11 @@ public class LoteServiceImpl implements LoteService {
 			int quantidade = vendaItem.getQuantidade();
 
 			for (Lote lote : lotes) {
+				
 				if (lote.getProduto().equals(produto)) {
 					lote.setNumeroDeItens(lote.getNumeroDeItens() + quantidade);
 				}
+				
 			}
 
 		}
@@ -200,11 +209,15 @@ public class LoteServiceImpl implements LoteService {
 
 	private boolean temLoteProximoDeVencer(Produto produto) {
 		List<Lote> lotes = this.findAllLotes();
+		
 		for (Lote lote : lotes) {
+			
 			if(lote.getProduto().equals(produto) && lote.pertoDeVencer()) {
 				return true;
 			}
+			
 		}
+		
 		return false;
 	}
 	
