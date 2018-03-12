@@ -78,6 +78,7 @@ public class LoteServiceImpl implements LoteService {
 		return iterator;
 	}
 
+	//TODO nao ta criando lotes com o mesmo produto 
 	@Override
 	public Lote criarLote(long produtoId, LoteDTO loteDTO) {
 		Lote loteParaSalvar = null;
@@ -95,27 +96,55 @@ public class LoteServiceImpl implements LoteService {
 		return loteSalvo;
 	}
 
-	// TODO: excluir do mais perto de vencer e vender de varios lotes, caso um nao
-	// tenha o suficiente pegar de outro
+	//TODO: teste. e melhorar ta feio
 	@Override
 	public void atualizaQuantProduto(List<VendaItem> produtosVendidos) {
-		List<Lote> lotes = this.findAllLotes();
-
 		for (VendaItem vendaItem : produtosVendidos) {
+			
 			Produto produto = vendaItem.getProduto();
 			int quantidade = vendaItem.getQuantidade();
-
-			for (Lote lote : lotes) {
+			List<Lote> lotesDoProduto = this.lotesDoProduto(produto); //TODO: para exluir do mais perto de vencer so ordenar essa list pela data ade validade
+			int cont = 0;
+			
+			while(quantidade > 0) {
+				Lote lote = lotesDoProduto.get(cont);
+				int quantidadeDoLote = lote.getNumeroDeItens();
 				
-				if (lote.getProduto().equals(produto)) {
-					lote.setNumeroDeItens(lote.getNumeroDeItens() - quantidade);
+				if(quantidadeDoLote >= quantidade) {
+					lote.setNumeroDeItens(quantidadeDoLote - quantidade);
+					break;
+				}else {
+					lote.setNumeroDeItens(0);
+					cont++;
+					quantidade = quantidade - quantidadeDoLote;
 				}
-				
 			}
-
+			this.salvaLotesAlterados(lotesDoProduto);
 		}
+		
 	}
 	
+	private void salvaLotesAlterados(List<Lote> lotesDoProduto) {
+		for (Lote lote : lotesDoProduto) {
+			this.lotesRepository.save(lote);
+		}
+		
+	}
+
+	private List<Lote> lotesDoProduto(Produto produto){
+		List<Lote> lotes = this.findAllLotes();
+		List<Lote> lotesDoProduto = new LinkedList<Lote>();
+		
+		for (Lote lote : lotes) {
+			
+			if(lote.getProduto().equals(produto)) {
+				lotesDoProduto.add(lote);
+			}
+			
+		}
+		
+		return lotesDoProduto;
+	}
 	
 
 	// retorna a quantidade de produtos em todos os lote 
