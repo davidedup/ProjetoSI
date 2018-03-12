@@ -26,32 +26,60 @@ public class Categoria implements Comparable<Categoria> {
 	@Transient
 	private Desconto desconto;
 	
+	/**
+         * Construtor sem parâmetro da classe Categoria
+         */
 	public Categoria() {
 		this.nome = "";
 		this.desconto = new SemDesconto();
 	}
 	
+        /**
+         * Construtor com parametro nome
+         * @param nome  
+         */
+        
 	public Categoria(String nome) {
 		this.nome = nome;
 		this.desconto = new SemDesconto();
 	}
 
+        /**
+         * Retorna nome da Categoria
+         * @return nome
+         */
 	public String getNome() {
 		return nome;
 	}
 
+        /**
+         * Altera o nome da categoria
+         * 
+         * @param categoria nome a ser alterado
+         */
 	public void setCategoria(String categoria) {
 		this.nome = categoria;
 	}
 
+        /**
+         * Retorna o desconto da categoria
+         * @return desconto
+         */
 	public Desconto getDesconto() {
 		return desconto;
 	}
-
+        /**
+         * Altera o desconto
+         * @param desconto desconto a ser alterado
+         */
 	public void setDesconto(Desconto desconto) {
 		this.desconto = desconto;
 	}
 
+        /**
+         * Informa o hashcode unico da categoria
+         * @return inteiro hashcode
+         */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -60,6 +88,12 @@ public class Categoria implements Comparable<Categoria> {
 		return result;
 	}
 
+        /**
+         * Compara a categoria com o objeto informado
+         * 
+         * @param obj Objeto a ser comparado
+         * @return retorna true se forem iguais, falso caso contrário
+         */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,7 +110,12 @@ public class Categoria implements Comparable<Categoria> {
 			return false;
 		return true;
 	}
-
+        /**
+         * Compara as categorias
+         * 
+         * @param categoria a ser comparada
+         * @return retorna 0 caso iguais, ou qualquer valor caso sejam diferentes
+         */
 	public int compareTo(Categoria categoria) {
 		return this.nome.compareTo(categoria.getNome());
 	}
