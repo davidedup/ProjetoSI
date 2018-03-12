@@ -18,7 +18,6 @@ import com.ufcg.si1.model.DTO.LoteDTO;
 import com.ufcg.si1.service.LoteService;
 import com.ufcg.si1.service.LoteServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
-import com.ufcg.si1.util.ObjWrapper;
 
 @RestController
 @RequestMapping("/lote")
