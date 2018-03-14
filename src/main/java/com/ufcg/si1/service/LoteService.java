@@ -40,6 +40,8 @@ public interface LoteService {
 
 	public List<Produto> listaProximoDeVencer();
 
+	public List<Produto> listaDisponiveis();
+
 
 
 }

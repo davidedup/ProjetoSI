@@ -249,5 +249,22 @@ public class LoteServiceImpl implements LoteService {
 		
 		return false;
 	}
+
+	@Override
+	public List<Produto> listaDisponiveis() {
+		Iterable<Produto> produtosIterable = this.produtosRepository.findAll();
+		List<Produto> produtos = Util.toList(produtosIterable);
+		List<Produto> produtosDisponiveis = new LinkedList<Produto>();
+		
+		for (Produto produto : produtos) {
+			
+			if(this.quantProduto(produto.getId()) > 0) {
+				produtosDisponiveis.add(produto);
+			}
+	
+		}
+		
+		return produtosDisponiveis;
+	}
 	
 }

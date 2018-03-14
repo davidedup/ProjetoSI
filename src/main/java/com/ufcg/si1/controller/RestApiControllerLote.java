@@ -85,5 +85,10 @@ public class RestApiControllerLote {
 		return new ResponseEntity<>(produtosProximoDaValidade , HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/lista-produtos-disponiveis", method = RequestMethod.GET)
+	public ResponseEntity<?> listaDisponiveis() {
+		List<Produto> produtosDisponiveis = this.loteService.listaDisponiveis();
+		return new ResponseEntity<>(produtosDisponiveis, HttpStatus.OK);
+	}
 	
 }
