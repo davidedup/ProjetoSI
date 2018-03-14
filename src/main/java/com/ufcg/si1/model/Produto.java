@@ -6,7 +6,8 @@ import javax.persistence.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ufcg.si1.desconto.Desconto;
+import exceptions.ObjetoInexistenteException;
+
 
 @Entity
 @Table(name = "tb_produto")
@@ -37,13 +38,13 @@ public class Produto {
     @JoinColumn(name = "id_produto")
 	private Categoria categoria;
 	
-	public Produto() {
+	public Produto() throws ObjetoInexistenteException {
 		this.id = 0;
 		this.preco = new BigDecimal(0);
 		this.categoria = new Categoria("");
 	}
 
-	public Produto(String nome, String codigoBarra, String fabricante, String nomeCategoria) {
+	public Produto(String nome, String codigoBarra, String fabricante, String nomeCategoria) throws ObjetoInexistenteException {
 		this.nome = nome;
 		this.preco = new BigDecimal(0);
 		this.codigoBarra = codigoBarra;
@@ -109,8 +110,8 @@ public class Produto {
 	}
 
 	 public BigDecimal precoComDesconto() {
-		 Desconto desconto = this.categoria.getDesconto();
-		 BigDecimal precoComDesconto =  desconto.calculaDesconto(this.preco);
+		 BigDecimal desconto = this.categoria.getDesconto();
+		 BigDecimal precoComDesconto = this.preco.multiply(desconto);
 		 return precoComDesconto;
 	 }
 
