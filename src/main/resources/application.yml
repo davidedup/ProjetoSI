@@ -6,9 +6,5 @@ spring:
       ddl-auto: create-drop
   datasource:
     url: jdbc:postgresql://localhost:5432/projetosi
-    username: postgres
-<<<<<<< HEAD
-    password: 1234
-=======
-    password: 1234
->>>>>>> e59ae3df4e12d12a63d24acc5920ba053b080184
+    username: mariana
+    password: mariana

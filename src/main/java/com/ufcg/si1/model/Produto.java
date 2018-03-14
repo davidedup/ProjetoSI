@@ -34,7 +34,7 @@ public class Produto {
 	private boolean disponivel;
 
 	@Autowired
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_produto")
 	private Categoria categoria;
 	

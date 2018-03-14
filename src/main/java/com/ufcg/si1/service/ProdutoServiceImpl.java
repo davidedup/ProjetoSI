@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.ufcg.si1.repositories.CategoriaRepository;
 import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.util.Util;
 import exceptions.ObjetoInexistenteException;
@@ -12,6 +13,7 @@ import exceptions.ObjetoJaExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufcg.si1.model.Categoria;
 import com.ufcg.si1.model.DescontoFactory;
 import com.ufcg.si1.model.Produto;
 
@@ -20,6 +22,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	@Autowired
 	private ProdutosRepository produtosRepository;
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	private DescontoFactory descontoFactory = new DescontoFactory();
 	
 
@@ -34,7 +38,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	public Produto salvaProduto(Produto produto) throws ObjetoJaExistenteException {
 		String nome = produto.getNome();
 		String fabricante = produto.getFabricante();
-
+		produto = this.setaCategoria(produto);
+		
 		if (this.produtoExiste(produto)) {
 			throw new ObjetoJaExistenteException("O produto " + nome +
 					" do fabricante " + fabricante + " ja esta cadastrado!");
@@ -44,6 +49,20 @@ public class ProdutoServiceImpl implements ProdutoService {
 		
 		return produto;
 	}
+
+	private Produto setaCategoria(Produto produto) {
+		Categoria categoria = produto.getCategoria();
+		String nomeCategoria = categoria.getNome();
+		Categoria categoriaAux = this.categoriaRepository.getCategoriaByNome(nomeCategoria);
+		
+		if (categoriaAux == null) {
+			categoriaAux = this.categoriaRepository.save(categoria);
+		}
+		
+		produto.setCategoria(categoriaAux);
+		return produto;
+	}
+
 
 	public Produto atualizaProduto(Produto produto, long id) throws ObjetoInexistenteException {
         Produto produtoSalvo = this.produtosRepository.save(produto);
