@@ -114,16 +114,16 @@ public class RestApiControllerProduto {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deletaProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
+	public ResponseEntity<Iterable<Produto>> deletaProduto(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		try {
 			this.produtoService.findById(id);
 		} catch (ObjetoInexistenteException e) {
 			throw new ObjetoInexistenteException("Não foi possivel deletar o produto. " + e.getMessage());
 		}
 
-		this.produtoService.deleteProdutoById(id);
+		Iterable<Produto> produtos = this.produtoService.deleteProdutoById(id);
 
-		return new ResponseEntity<Produto>(HttpStatus.OK);
+		return new ResponseEntity<>(produtos, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/preco/{id}", method = RequestMethod.GET)
