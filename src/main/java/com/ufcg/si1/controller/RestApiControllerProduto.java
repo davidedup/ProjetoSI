@@ -139,7 +139,7 @@ public class RestApiControllerProduto {
 	public ResponseEntity<?> consultaDisponibilidade(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
 		boolean disponibilidade = produtoRequerido.getDisponibilidade();
-        ObjWrapper<?> disponibilidadeWrapper = new ObjWrapper<>(disponibilidade);
+        	ObjWrapper<?> disponibilidadeWrapper = new ObjWrapper<>(disponibilidade);
 
 		return new ResponseEntity<>(disponibilidadeWrapper, HttpStatus.OK);
 	}
@@ -147,7 +147,9 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/quantidade", method = RequestMethod.GET)
 	public ResponseEntity<?> quantProdutos() {
 		int quantProdutos = this.produtoService.quantProduto();
-		return new ResponseEntity<>(quantProdutos, HttpStatus.OK);
+		ObjWrapper<?> quantProdutosWrapper = new ObjWrapper<>(quantProdutos);
+		
+		return new ResponseEntity<>(quantProdutosWrapper, HttpStatus.OK);
 	}
 
 }
