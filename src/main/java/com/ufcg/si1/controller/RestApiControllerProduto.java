@@ -130,7 +130,7 @@ public class RestApiControllerProduto {
 	@RequestMapping(value = "/preco/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultaPreco(@PathVariable("id") long id) throws ObjetoInexistenteException {
 		Produto produtoRequerido = this.produtoService.findById(id);
-        BigDecimal precoDoProduto = produtoRequerido.getPrecoComDesconto();
+        BigDecimal precoDoProduto = produtoRequerido.precoComDesconto();
         ObjWrapper<?> precoWrapper = new ObjWrapper<>(precoDoProduto);
 
 		return new ResponseEntity<>(precoWrapper, HttpStatus.OK);

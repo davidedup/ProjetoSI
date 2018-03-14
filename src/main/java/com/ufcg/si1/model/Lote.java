@@ -70,32 +70,51 @@ public class Lote {
 	public void setDataDeValidade(String dataDeValidade) {
 		this.dataDeValidade = dataDeValidade;
 	}
-
-	@Override
-	public String toString() {
-		return "Lote{" + "id=" + id + ", produto=" + produto.getId() + ", numeroDeItens=" + numeroDeItens
-				+ ", dataDeValidade='" + dataDeValidade + '\'' + '}';
+	
+	public boolean estaVencido() {
+		boolean estaVencido = this.diferencaDeDataMenorIgualQue(-1);
+		return estaVencido;
+	}
+	
+	public boolean pertoDeVencer() {
+		boolean estaPertoDeVencer = this.diferencaDeDataMenorIgualQue(30);
+		return estaPertoDeVencer;
+	}
+	
+	private boolean diferencaDeDataMenorIgualQue(int quantidadeDeDias) {
+		Date dataDeVencimento = dataLoteDate();
+		
+		Date date = new Date();
+		long diferenca = diferencaDias(dataDeVencimento, date);
+		
+		if (diferenca <= quantidadeDeDias) {	
+			return true;
+		}
+		return false;
 	}
 
-	public boolean pertoDeVencer() {
+	private Date dataLoteDate() {
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		Date dataDeVencimento = null;
-		Date date = new Date();
-
+		
 		try {
 			dataDeVencimento = formato.parse(this.dataDeValidade);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		return dataDeVencimento;
+	}
 
+	private long diferencaDias(Date dataDeVencimento, Date date) {
 		long dias = 24L * 60L * 60L * 1000L;
 		long diferenca = ((dataDeVencimento.getTime() - date.getTime() ) / dias);
-		
-		if (diferenca <= 30) {
-			
-			return true;
-		}
-		return false;
+		return diferenca;
+	}
+	
 
+	@Override
+	public String toString() {
+		return "Lote{" + "id=" + id + ", produto=" + produto.getId() + ", numeroDeItens=" + numeroDeItens
+				+ ", dataDeValidade='" + dataDeValidade + '\'' + '}';
 	}
 }

@@ -1,6 +1,7 @@
 package com.ufcg.si1.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,13 +34,27 @@ public class Venda {
 	private String dataDaVenda;
 
 	public Venda() {
-
+		this.produtosVendidos = new ArrayList<>();
 	}
 
 	public Venda(List<VendaItem> produtosVendidos, String dataDaVenda) {
-		this.produtosVendidos = produtosVendidos;
-		this.dataDaVenda = dataDaVenda;
+		this.produtosVendidos = new ArrayList<>();
 		
+		System.out.println("Venda: " + dataDaVenda);
+		System.out.println("Venda: " + produtosVendidos);
+		
+		for (VendaItem vendaItem: produtosVendidos) {
+			System.out.println("Venda: " + vendaItem);
+			System.out.println("Venda: " + vendaItem.getQuantidade());
+			System.out.println("Venda: " + vendaItem.getProduto());
+			System.out.println("Venda: " + vendaItem.getProduto().getNome());
+			System.out.println("Venda: " + vendaItem.getProduto().getId());
+
+			this.produtosVendidos.add(vendaItem);
+			
+			System.out.println("Venda: salvou");
+		}
+		this.dataDaVenda = dataDaVenda;	
 	}
 
 	public BigDecimal calculaTotal() {
@@ -48,7 +63,7 @@ public class Venda {
 		for (VendaItem vendaItem : this.produtosVendidos) {
 			Produto produto = vendaItem.getProduto();
 			int quantidadeDeProdutos = vendaItem.getQuantidade();
-			BigDecimal precoComDesconto = produto.getPrecoComDesconto();
+			BigDecimal precoComDesconto = produto.precoComDesconto();
 			BigDecimal intParaBigDecimal = new BigDecimal(quantidadeDeProdutos);
 			totalDaVenda = precoComDesconto.multiply(intParaBigDecimal).add(totalDaVenda);
 		}

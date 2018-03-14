@@ -2,7 +2,6 @@ package com.ufcg.si1.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
-@Table(name = "tb_lote")
+@Table(name = "tb_venda_item")
 public class VendaItem {
 
 	@Id
@@ -24,7 +23,7 @@ public class VendaItem {
 	private long id;
 
 	@Autowired
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
@@ -59,5 +58,12 @@ public class VendaItem {
 	public BigDecimal getPreco() {
 		return this.produto.getPreco();
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }

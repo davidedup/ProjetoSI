@@ -78,7 +78,6 @@ public class LoteServiceImpl implements LoteService {
 		return iterator;
 	}
 
-	//TODO nao ta criando lotes com o mesmo produto 
 	@Override
 	public Lote criarLote(long produtoId, LoteDTO loteDTO) {
 		Lote loteParaSalvar = null;
@@ -96,29 +95,31 @@ public class LoteServiceImpl implements LoteService {
 		return loteSalvo;
 	}
 
-	//TODO: teste. e melhorar ta feio
 	@Override
 	public void atualizaQuantProduto(List<VendaItem> produtosVendidos) {
 		for (VendaItem vendaItem : produtosVendidos) {
 			
 			Produto produto = vendaItem.getProduto();
+			List<Lote> lotesDoProduto = this.lotesDoProduto(produto);
 			int quantidade = vendaItem.getQuantidade();
-			List<Lote> lotesDoProduto = this.lotesDoProduto(produto); //TODO: para exluir do mais perto de vencer so ordenar essa list pela data ade validade
 			int cont = 0;
 			
-			while(quantidade > 0 && lotesDoProduto.size() < cont) {
+			while(quantidade > 0 && lotesDoProduto.size() > cont) {
 				Lote lote = lotesDoProduto.get(cont);
 				int quantidadeDoLote = lote.getNumeroDeItens();
 				
-				if(quantidadeDoLote >= quantidade) {
-					lote.setNumeroDeItens(quantidadeDoLote - quantidade);
-					break;
-				}else {
-					lote.setNumeroDeItens(0);
-					cont++;
-					quantidade = quantidade - quantidadeDoLote;
+				if (!lote.estaVencido()) {
+					if(quantidadeDoLote >= quantidade) {
+						lote.setNumeroDeItens(quantidadeDoLote - quantidade);
+						break;
+					}else {
+						lote.setNumeroDeItens(0);
+						quantidade = quantidade - quantidadeDoLote;
+					}
 				}
+				cont++;
 			}
+			
 			this.salvaLotesAlterados(lotesDoProduto);
 		}
 		
@@ -128,7 +129,6 @@ public class LoteServiceImpl implements LoteService {
 		for (Lote lote : lotesDoProduto) {
 			this.lotesRepository.save(lote);
 		}
-		
 	}
 
 	private List<Lote> lotesDoProduto(Produto produto){
@@ -147,7 +147,6 @@ public class LoteServiceImpl implements LoteService {
 	}
 	
 
-	// retorna a quantidade de produtos em todos os lote 
 	@Override
 	public int quantProduto(long produtoId) {
 		List<Lote> lotes = this.findAllLotes();

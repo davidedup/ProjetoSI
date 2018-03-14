@@ -24,8 +24,19 @@ public class VendaServiceImpl implements VendaService {
 	public Venda cadastraVenda(List<VendaItem> produtosVendidos, String dataDaVenda) {
 		System.out.println("Venda service impl " + produtosVendidos.size());
 		Venda vendaParaSalva = new Venda(produtosVendidos, dataDaVenda);
+		System.out.println("Venda Impl: criou venda");
+		System.out.println("Venda Impl: criou venda " + vendaParaSalva.getId());
 		this.loteService.atualizaQuantProduto(produtosVendidos);
-		return vendasRepository.save(vendaParaSalva);	
+		System.out.println("Venda Impl: voltou da criação de venda");
+		
+		for (VendaItem produto: vendaParaSalva.getProdutosVendidos()) {
+			System.out.println("Venda impl: " + produto.getQuantidade());
+			System.out.println("Venda impl: " + produto.getId());
+			System.out.println("Venda impl: " + produto.getProduto().getId());
+			System.out.println("Venda impl: " + produto.getProduto().getId());
+		}
+		
+		return vendasRepository.save(vendaParaSalva);
 	}
 
 	@Override

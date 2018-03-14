@@ -109,7 +109,7 @@ public class Produto {
 		this.disponivel = disponivel;
 	}
 
-	 public BigDecimal getPrecoComDesconto() {
+	 public BigDecimal precoComDesconto() {
 		 BigDecimal desconto = this.categoria.getDesconto();
 		 BigDecimal precoComDesconto = this.preco.multiply(desconto);
 		 return precoComDesconto;
