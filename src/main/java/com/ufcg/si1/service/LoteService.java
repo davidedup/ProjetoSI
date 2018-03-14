@@ -36,9 +36,15 @@ public interface LoteService {
 
 	public void incrementaQuantProdutos(List<VendaItem> produtosVendidos);
 
-	public List<Produto> listaProdutosBaixaQaunt();
+	public List<Produto> listaProdutosBaixaQuant();
 
 	public List<Produto> listaProximoDeVencer();
+
+	public List<Produto> listaDisponiveis();
+
+	public List<Produto> listaIndisponiveis();
+
+	public List<Produto> listaVencidos();
 
 
 

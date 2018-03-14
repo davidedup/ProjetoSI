@@ -154,7 +154,7 @@ public class LoteServiceImpl implements LoteService {
 
 		for (Lote lote : lotes) {
 			
-			if (lote.getProduto().getId() == produtoId) {
+			if (lote.getProduto().getId() == produtoId && lote.estaNaValidade()) {
 				quantidade += lote.getNumeroDeItens();
 			}
 			
@@ -201,7 +201,7 @@ public class LoteServiceImpl implements LoteService {
 	}
 
 	@Override
-	public List<Produto> listaProdutosBaixaQaunt() {
+	public List<Produto> listaProdutosBaixaQuant() {
 		List<Produto> produtosComBaixaQaunt = new LinkedList<>();
 		List<Produto> produtos = Util.toList(this.produtosRepository.findAll());
 
@@ -247,6 +247,65 @@ public class LoteServiceImpl implements LoteService {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public List<Produto> listaDisponiveis() {
+		Iterable<Produto> produtosIterable = this.produtosRepository.findAll();
+		List<Produto> produtos = Util.toList(produtosIterable);
+		List<Produto> produtosDisponiveis = new LinkedList<Produto>();
+		
+		for (Produto produto : produtos) {
+			
+			if(this.quantProduto(produto.getId()) > 0) {
+				produtosDisponiveis.add(produto);
+			}
+	
+		}
+		
+		return produtosDisponiveis;
+	}
+
+	@Override
+	public List<Produto> listaIndisponiveis() {
+		Iterable<Produto> produtosIterable = this.produtosRepository.findAll();
+		List<Produto> produtos = Util.toList(produtosIterable);
+		List<Produto> produtosIndisponiveis = new LinkedList<Produto>();
+		
+		for (Produto produto : produtos) {
+			
+			if(this.quantProduto(produto.getId()) == 0) {
+				produtosIndisponiveis.add(produto);
+			}
+	
+		}
+		
+		return produtosIndisponiveis;
+	}
+
+	@Override
+	public List<Produto> listaVencidos() {
+		Iterable<Produto> produtosIterable = this.produtosRepository.findAll();
+		List<Produto> produtos = Util.toList(produtosIterable);
+		List<Produto> produtosVencidos = new LinkedList<Produto>();
+		List<Lote> lotes = this.findAllLotes();
+		
+		for (Produto produto : produtos) {
+			boolean temAlgumNaValidade = false;
+			
+			for (Lote lote : lotes) {
+				if(lote.getProduto().equals(produto) && lote.estaNaValidade()) {
+					temAlgumNaValidade = true;
+				}
+			}
+			
+			if(!temAlgumNaValidade) {
+				produtosVencidos.add(produto);
+			}
+		
+		}
+
+		return produtosVencidos;		
 	}
 	
 }

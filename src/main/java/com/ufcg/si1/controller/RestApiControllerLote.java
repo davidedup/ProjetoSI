@@ -75,7 +75,7 @@ public class RestApiControllerLote {
 	
 	@RequestMapping(value = "/lista-produtos-baixa-quant", method = RequestMethod.GET)
 	public ResponseEntity<?> listaProdutosBaixaQaunt() {
-		List<Produto> produtosPoucaQuant = this.loteService.listaProdutosBaixaQaunt();
+		List<Produto> produtosPoucaQuant = this.loteService.listaProdutosBaixaQuant();
 		return new ResponseEntity<>(produtosPoucaQuant, HttpStatus.OK);
 	}
 	
@@ -84,6 +84,25 @@ public class RestApiControllerLote {
 		List<Produto> produtosProximoDaValidade = this.loteService.listaProximoDeVencer();
 		return new ResponseEntity<>(produtosProximoDaValidade , HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/lista-produtos-disponiveis", method = RequestMethod.GET)
+	public ResponseEntity<?> listaDisponiveis() {
+		List<Produto> produtosDisponiveis = this.loteService.listaDisponiveis();
+		return new ResponseEntity<>(produtosDisponiveis, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/lista-produtos-indisponiveis", method = RequestMethod.GET)
+	public ResponseEntity<?> listaIndisponiveis() {
+		List<Produto> produtosIndisponiveis = this.loteService.listaIndisponiveis();
+		return new ResponseEntity<>(produtosIndisponiveis, HttpStatus.OK);
+	}	
+	
+	@RequestMapping(value = "/lista-produtos-vencidos", method = RequestMethod.GET)
+	public ResponseEntity<?> listaVencidos() {
+		List<Produto> produtosVencidos = this.loteService.listaVencidos();
+		return new ResponseEntity<>(produtosVencidos, HttpStatus.OK);
+	}
+	
 	
 	
 }
