@@ -2,6 +2,8 @@ package com.ufcg.si1;
 
 import com.ufcg.si1.model.Produto;
 import com.ufcg.si1.repositories.ProdutosRepository;
+import com.ufcg.si1.service.ProdutoServiceImpl;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,8 +33,9 @@ public class EstoqueFacilRestApi {
 	}
 
 	@Bean
-	CommandLineRunner init(ProdutosRepository produtosRepository) {
+	CommandLineRunner init(ProdutoServiceImpl produtoServiceImpl) {
 		return (evt) -> {
+							
 							List<Produto> produtos = new ArrayList<>();
 							Produto produto1 = new Produto("produto1", "123", "fabricante1", "categoria1");
 							produtos.add(produto1);
@@ -42,8 +45,8 @@ public class EstoqueFacilRestApi {
 							produtos.add(produto3);
 
 							for (Produto produto: produtos) {
-								produtosRepository.save(produto);
-						}
+								produtoServiceImpl.salvaProduto(produto);
+							}
 		};
 	}
 

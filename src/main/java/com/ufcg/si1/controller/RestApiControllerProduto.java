@@ -35,7 +35,7 @@ import com.ufcg.si1.util.ObjWrapper;
 public class RestApiControllerProduto {
 
 	@Autowired
-	ProdutoService produtoService = new ProdutoServiceImpl();
+	private ProdutoService produtoService = new ProdutoServiceImpl();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(method = RequestMethod.GET)
@@ -149,19 +149,6 @@ public class RestApiControllerProduto {
 	public ResponseEntity<?> quantProdutos() {
 		int quantProdutos = this.produtoService.quantProduto();
 		return new ResponseEntity<>(quantProdutos, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/categoria/{categoria}/desconto/{desconto}", method = RequestMethod.POST)
-	public ResponseEntity<?> atribuiDescontoACategoria(@PathVariable("categoria") String nomeDaCategoria, @PathVariable("desconto") String nomeDoDesconto) {
-		this.produtoService.atribuiDescontoACategoria(nomeDaCategoria, nomeDoDesconto);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/lista-categoria", method = RequestMethod.GET)
-	public ResponseEntity<?> listaCategorias() {
-		List<String> categorias = this.produtoService.listaCategorias();
-		ObjWrapper<List<String>> categoriasWrapped = new ObjWrapper<>(categorias);
-		return new ResponseEntity<>(categoriasWrapped, HttpStatus.OK);
 	}
 	
 }

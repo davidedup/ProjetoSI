@@ -25,7 +25,7 @@ public interface ProdutoService {
 
 	public int quantProduto();
 
-	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto);
+	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto) throws ObjetoInexistenteException;
 
 	public List<String> listaCategorias();
 }

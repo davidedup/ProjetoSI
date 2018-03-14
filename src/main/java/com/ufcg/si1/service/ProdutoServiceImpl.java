@@ -1,5 +1,6 @@
 package com.ufcg.si1.service;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,12 +12,7 @@ import exceptions.ObjetoJaExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufcg.si1.desconto.BomDesconto;
-import com.ufcg.si1.desconto.Desconto;
-import com.ufcg.si1.desconto.DescontoFactory;
-import com.ufcg.si1.desconto.OtimoDesconto;
-import com.ufcg.si1.desconto.SemDesconto;
-import com.ufcg.si1.desconto.SuperDesconto;
+import com.ufcg.si1.model.DescontoFactory;
 import com.ufcg.si1.model.Produto;
 
 @Service("produtoService")
@@ -24,7 +20,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	@Autowired
 	private ProdutosRepository produtosRepository;
-	private DescontoFactory fabricaDeDescontos = new DescontoFactory();
+	private DescontoFactory descontoFactory = new DescontoFactory();
+	
 
 	public List<Produto> findAllProdutos() {
 		Iterable<Produto> produtos = this.produtosRepository.findAll();
@@ -96,9 +93,9 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 
 	@Override
-	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto) {
+	public void atribuiDescontoACategoria(String nomeDaCategoria, String nomeDoDesconto) throws ObjetoInexistenteException {
 		List<Produto> produtos =  this.findAllProdutos();
-		Desconto desconto = this.fabricaDeDescontos.criaDesconto(nomeDoDesconto);
+		BigDecimal desconto = this.descontoFactory.criaDesconto(nomeDoDesconto);
 		
 		for (Produto produto : produtos) {
 			if(produto.getCategoria().getNome().equals(nomeDaCategoria)) {
