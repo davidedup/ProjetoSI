@@ -65,9 +65,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 
 	public Produto atualizaProduto(Produto produto, long id) throws ObjetoInexistenteException {
-        Produto produtoSalvo = this.produtosRepository.save(produto);
+		produto = this.setaCategoria(produto);
+        produto = this.produtosRepository.save(produto);
 		
-        return produtoSalvo;
+        return produto;
 	}
 
 	public Iterable<Produto> deleteProdutoById(long id) {
