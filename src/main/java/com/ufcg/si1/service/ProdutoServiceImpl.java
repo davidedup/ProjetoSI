@@ -70,8 +70,10 @@ public class ProdutoServiceImpl implements ProdutoService {
         return produtoSalvo;
 	}
 
-	public void deleteProdutoById(long id) {
+	public Iterable<Produto> deleteProdutoById(long id) {
 		this.produtosRepository.delete(id);
+		Iterable<Produto> produtos = this.produtosRepository.findAll();
+		return produtos;
 	}
 
 	public Iterator<Produto> getIterator() {

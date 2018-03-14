@@ -17,7 +17,7 @@ public interface ProdutoService {
 
 	public Produto atualizaProduto(Produto user, long id) throws ObjetoInexistenteException;
 
-	public void deleteProdutoById(long id);
+	public Iterable<Produto> deleteProdutoById(long id);
 
 	public Iterator<Produto> getIterator();
 
