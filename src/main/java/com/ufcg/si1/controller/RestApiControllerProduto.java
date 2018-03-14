@@ -41,7 +41,6 @@ public class RestApiControllerProduto {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Produto>> listarProdutos() {
 		List<Produto> produtos = produtoService.findAllProdutos();
-		System.out.println(produtos.get(0).getCategoria().getDesconto().toString());
 
 		if (produtos.isEmpty()) {
 			return new ResponseEntity(new CustomErrorType("Não existe produtos cadastrados"), HttpStatus.NO_CONTENT);
