@@ -97,4 +97,12 @@ public class RestApiControllerLote {
 		return new ResponseEntity<>(produtosIndisponiveis, HttpStatus.OK);
 	}	
 	
+	@RequestMapping(value = "/lista-produtos-vencidos", method = RequestMethod.GET)
+	public ResponseEntity<?> listaVencidos() {
+		List<Produto> produtosVencidos = this.loteService.listaVencidos();
+		return new ResponseEntity<>(produtosVencidos, HttpStatus.OK);
+	}
+	
+	
+	
 }

@@ -283,5 +283,30 @@ public class LoteServiceImpl implements LoteService {
 		
 		return produtosIndisponiveis;
 	}
+
+	@Override
+	public List<Produto> listaVencidos() {
+		Iterable<Produto> produtosIterable = this.produtosRepository.findAll();
+		List<Produto> produtos = Util.toList(produtosIterable);
+		List<Produto> produtosVencidos = new LinkedList<Produto>();
+		List<Lote> lotes = this.findAllLotes();
+		
+		for (Produto produto : produtos) {
+			boolean temAlgumNaValidade = false;
+			
+			for (Lote lote : lotes) {
+				if(lote.getProduto().equals(produto) && lote.estaNaValidade()) {
+					temAlgumNaValidade = true;
+				}
+			}
+			
+			if(!temAlgumNaValidade) {
+				produtosVencidos.add(produto);
+			}
+		
+		}
+
+		return produtosVencidos;		
+	}
 	
 }
