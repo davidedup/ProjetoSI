@@ -98,4 +98,24 @@ public class Lote {
 		return false;
 
 	}
+
+	public boolean estaNaValidade() {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date dataDeVencimento = null;
+		Date date = new Date();
+		try {
+			dataDeVencimento = formato.parse(this.dataDeValidade);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		long dias = 24L * 60L * 60L * 1000L;
+		long diferenca = ((dataDeVencimento.getTime() - date.getTime() ) / dias);
+		
+		if (diferenca <= 0) {
+			return true;
+		}
+		return false;
+		
+	}
+
 }

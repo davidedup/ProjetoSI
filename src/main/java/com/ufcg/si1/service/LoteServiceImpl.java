@@ -155,7 +155,7 @@ public class LoteServiceImpl implements LoteService {
 
 		for (Lote lote : lotes) {
 			
-			if (lote.getProduto().getId() == produtoId) {
+			if (lote.getProduto().getId() == produtoId && lote.estaNaValidade()) {
 				quantidade += lote.getNumeroDeItens();
 			}
 			
