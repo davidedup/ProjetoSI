@@ -1,7 +1,6 @@
 package com.ufcg.si1;
 
 import com.ufcg.si1.model.Produto;
-import com.ufcg.si1.repositories.ProdutosRepository;
 import com.ufcg.si1.service.ProdutoServiceImpl;
 
 import org.springframework.boot.CommandLineRunner;

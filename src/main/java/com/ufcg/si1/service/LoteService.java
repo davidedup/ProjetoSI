@@ -46,6 +46,8 @@ public interface LoteService {
 
 	public List<Produto> listaVencidos();
 
+	public void atualizaDisponibilidadeDeProdutos();
+
 
 
 }

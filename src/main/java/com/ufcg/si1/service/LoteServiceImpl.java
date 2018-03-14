@@ -308,4 +308,14 @@ public class LoteServiceImpl implements LoteService {
 		return produtosVencidos;		
 	}
 	
+	public void atualizaDisponibilidadeDeProdutos() {
+		List<Produto> produtosComQuantZero = this.listaIndisponiveis();
+		
+		for (Produto produto : produtosComQuantZero) {
+			produto.setDisponibilidade(false);
+			this.produtosRepository.save(produto);
+		}
+
+	}
+	
 }

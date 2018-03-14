@@ -36,6 +36,8 @@ public class VendaServiceImpl implements VendaService {
 			System.out.println("Venda impl: " + produto.getProduto().getId());
 		}
 		
+		this.loteService.atualizaDisponibilidadeDeProdutos();
+		
 		return vendasRepository.save(vendaParaSalva);
 	}
 

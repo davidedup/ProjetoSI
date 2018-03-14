@@ -102,7 +102,5 @@ public class RestApiControllerLote {
 		List<Produto> produtosVencidos = this.loteService.listaVencidos();
 		return new ResponseEntity<>(produtosVencidos, HttpStatus.OK);
 	}
-	
-	
-	
+
 }
