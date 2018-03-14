@@ -202,7 +202,7 @@ public class LoteServiceImpl implements LoteService {
 	}
 
 	@Override
-	public List<Produto> listaProdutosBaixaQaunt() {
+	public List<Produto> listaProdutosBaixaQuant() {
 		List<Produto> produtosComBaixaQaunt = new LinkedList<>();
 		List<Produto> produtos = Util.toList(this.produtosRepository.findAll());
 
@@ -265,6 +265,23 @@ public class LoteServiceImpl implements LoteService {
 		}
 		
 		return produtosDisponiveis;
+	}
+
+	@Override
+	public List<Produto> listaIndisponiveis() {
+		Iterable<Produto> produtosIterable = this.produtosRepository.findAll();
+		List<Produto> produtos = Util.toList(produtosIterable);
+		List<Produto> produtosIndisponiveis = new LinkedList<Produto>();
+		
+		for (Produto produto : produtos) {
+			
+			if(this.quantProduto(produto.getId()) == 0) {
+				produtosIndisponiveis.add(produto);
+			}
+	
+		}
+		
+		return produtosIndisponiveis;
 	}
 	
 }
