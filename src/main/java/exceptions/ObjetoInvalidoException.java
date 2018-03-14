@@ -1,14 +1,14 @@
 package exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 @SuppressWarnings("serial")
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class ObjetoInvalidoException extends Exception {
 
 	public ObjetoInvalidoException(String erro) {
-		super("ExcecaoDados: " + erro);
+		super(erro);
 	}
 
 }
-
-/*--- Formatted in Sun Java Convention Style on Mon, Oct 30, '00 ---*/
-
-/*------ Formatted by Jindent 3.23 Gold 1.02 Trial --- http://www.jindent.de ------*/

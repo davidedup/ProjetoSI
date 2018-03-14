@@ -44,12 +44,6 @@ public class Venda {
 		System.out.println("Venda: " + produtosVendidos);
 		
 		for (VendaItem vendaItem: produtosVendidos) {
-			System.out.println("Venda: " + vendaItem);
-			System.out.println("Venda: " + vendaItem.getQuantidade());
-			System.out.println("Venda: " + vendaItem.getProduto());
-			System.out.println("Venda: " + vendaItem.getProduto().getNome());
-			System.out.println("Venda: " + vendaItem.getProduto().getId());
-
 			this.produtosVendidos.add(vendaItem);
 			
 			System.out.println("Venda: salvou");
