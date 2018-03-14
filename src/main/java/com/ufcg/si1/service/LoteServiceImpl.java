@@ -106,7 +106,7 @@ public class LoteServiceImpl implements LoteService {
 			List<Lote> lotesDoProduto = this.lotesDoProduto(produto); //TODO: para exluir do mais perto de vencer so ordenar essa list pela data ade validade
 			int cont = 0;
 			
-			while(quantidade > 0) {
+			while(quantidade > 0 && lotesDoProduto.size() < cont) {
 				Lote lote = lotesDoProduto.get(cont);
 				int quantidadeDoLote = lote.getNumeroDeItens();
 				

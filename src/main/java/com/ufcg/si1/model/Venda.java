@@ -48,7 +48,7 @@ public class Venda {
 		for (VendaItem vendaItem : this.produtosVendidos) {
 			Produto produto = vendaItem.getProduto();
 			int quantidadeDeProdutos = vendaItem.getQuantidade();
-			BigDecimal precoComDesconto = produto.precoComDesconto();
+			BigDecimal precoComDesconto = produto.getPrecoComDesconto();
 			BigDecimal intParaBigDecimal = new BigDecimal(quantidadeDeProdutos);
 			totalDaVenda = precoComDesconto.multiply(intParaBigDecimal).add(totalDaVenda);
 		}
