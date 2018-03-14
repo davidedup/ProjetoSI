@@ -11,16 +11,16 @@ public class DescontoFactory {
 		nomeDoDesconto = nomeDoDesconto.toLowerCase();
 		
 		switch (nomeDoDesconto) {
-		case "sem-desconto":
+		case "sem":
 			desconto = new BigDecimal(1);
 			break;
-		case "bom-desconto":
+		case "bom":
 			desconto = new BigDecimal(0.90);
 			break;
-		case "otimo-desconto":
+		case "otimo":
 			desconto = new BigDecimal(0.75);
 			break;
-		case "super-desconto":
+		case "super":
 			desconto = new BigDecimal(0.50);
 			break;
 		default:

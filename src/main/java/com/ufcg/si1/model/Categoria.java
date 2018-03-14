@@ -34,7 +34,7 @@ public class Categoria implements Comparable<Categoria> {
          */
 	public Categoria() throws ObjetoInexistenteException {
 		this.nome = "";
-		this.desconto = this.criaDesconto("sem-desconto");
+		this.desconto = this.criaDesconto("sem");
 	}
 	
         /**
@@ -45,7 +45,7 @@ public class Categoria implements Comparable<Categoria> {
         
 	public Categoria(String nome) throws ObjetoInexistenteException {
 		this.nome = nome;
-		this.desconto = this.criaDesconto("sem-desconto");
+		this.desconto = this.criaDesconto("sem");
 	}
 	
 	/**

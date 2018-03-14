@@ -18,14 +18,13 @@ import com.ufcg.si1.util.ObjWrapper;
 import exceptions.ObjetoInexistenteException;
 
 @RestController
-@RequestMapping("/categoria")
 @CrossOrigin
 public class RestApiControllerCategoria {
 	
 	@Autowired
 	private ProdutoService produtoService = new ProdutoServiceImpl();
 	
-	@RequestMapping(value = "/{categoria}/desconto/{desconto}", method = RequestMethod.POST)
+	@RequestMapping(value = "/categoria/{categoria}/desconto/{desconto}", method = RequestMethod.POST)
 	public ResponseEntity<?> atribuiDescontoACategoria(@PathVariable("categoria") String nomeDaCategoria, @PathVariable("desconto") String nomeDoDesconto)
 			throws ObjetoInexistenteException {
 		this.produtoService.atribuiDescontoACategoria(nomeDaCategoria, nomeDoDesconto);
