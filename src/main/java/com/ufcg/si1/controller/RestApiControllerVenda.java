@@ -18,6 +18,7 @@ import com.ufcg.si1.model.VendaItem;
 import com.ufcg.si1.service.VendaService;
 import com.ufcg.si1.service.VendaServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
+import com.ufcg.si1.util.ObjWrapper;
 
 
 @RestController
@@ -41,9 +42,10 @@ public class RestApiControllerVenda {
 	}
 	
 	@RequestMapping(value = "/caixa", method = RequestMethod.GET)
-	public ResponseEntity<BigDecimal> calculaTotalDeVendas(){
+	public ResponseEntity<ObjWrapper> calculaTotalDeVendas(){
 		BigDecimal caixa = this.vendaService.calculaTotalDeVendas();
-		return new ResponseEntity<BigDecimal>(caixa, HttpStatus.OK);
+		
+		return new ResponseEntity<ObjWrapper>(new ObjWrapper(caixa), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/cancela", method = RequestMethod.POST)
